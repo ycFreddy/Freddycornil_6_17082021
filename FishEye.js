@@ -33,10 +33,10 @@ fetch('FishEyeData.json')
   function affiche(data) {
     var parent = document.getElementById("listePhotographes");    
     data.forEach(obj => {
-    let element = document.createElement('div');
-    element.id = "personnageVignette";
-    element.className = "personnageVignette";
-    parent.appendChild(element);
+      let element = document.createElement('div');
+      element.id = "personnageVignette";
+      element.className = "personnageVignette";
+      parent.appendChild(element);
       creerPhotographe (element, "img", "portrait", "public/images/PhotographersIDPhotos/" + obj.portrait);
       creerPhotographe (element, "h2", "name", obj.name);
       creerPhotographe (element, "p", "city", obj.city + ", " + obj.country);
