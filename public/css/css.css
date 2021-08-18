@@ -71,3 +71,10 @@
   padding-left: 10px;
   padding-right: 10px;  
 }
+
+@media (max-width: 576px) { 
+  .personnageVignette {     
+    margin: 0em;
+    margin-top: 4em;
+  }
+}
