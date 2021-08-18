@@ -39,15 +39,15 @@ function creerPhotographe(obj, parent) {
   element.id = "personnageVignette";
   element.className = "personnageVignette";
   parent.appendChild(element);
-  descrptionPhotographe (element, "img", "portrait", "public/images/PhotographersIDPhotos/" + obj.portrait);
-  descrptionPhotographe (element, "h2", "name", obj.name);
-  descrptionPhotographe (element, "p", "city", obj.city + ", " + obj.country);
-  descrptionPhotographe (element, "p", "tagline", obj.tagline);
-  descrptionPhotographe (element, "p", "price", obj.price + "€/jour");
-  descrptionPhotographe (element, "ul", "tags", obj.tags);
+  descriptionPhotographe (element, "img", "portrait", "public/images/PhotographersIDPhotos/" + obj.portrait);
+  descriptionPhotographe (element, "h2", "name", obj.name);
+  descriptionPhotographe (element, "p", "city", obj.city + ", " + obj.country);
+  descriptionPhotographe (element, "p", "tagline", obj.tagline);
+  descriptionPhotographe (element, "p", "price", obj.price + "€/jour");
+  descriptionPhotographe (element, "ul", "tags", obj.tags);
 }
 
-function descrptionPhotographe (parent, type, key, value) {
+function descriptionPhotographe (parent, type, key, value) {
   let element = document.createElement(type);
   element.id = key;
   element.className = key;
