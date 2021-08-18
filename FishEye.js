@@ -21,7 +21,7 @@ function isPhotographeTag(obj, tag) {
 }
 
 function affichePhotographesParTag(data, tag="") {
-  var parent = document.getElementById("listePhotographes");
+  let parent = document.getElementById("listePhotographes");
   data.forEach(obj => {    
     if (tag) {
       if (isPhotographeTag(obj.tags, tag) === true) {
