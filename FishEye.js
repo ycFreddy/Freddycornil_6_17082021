@@ -25,29 +25,29 @@ function affichePhotographesParTag(data, tag="") {
   data.forEach(obj => {    
     if (tag) {
       if (isPhotographeTag(obj.tags, tag) === true) {
-        listePhotographe(obj, parent);
+        creerPhotographe(obj, parent);
       }
     }
     else {
-      listePhotographe(obj, parent);
+      creerPhotographe(obj, parent);
     }
   });
 }
 
-function listePhotographe(obj, parent) {
+function creerPhotographe(obj, parent) {
   let element = document.createElement('div');
   element.id = "personnageVignette";
   element.className = "personnageVignette";
   parent.appendChild(element);
-  creerPhotographe (element, "img", "portrait", "public/images/PhotographersIDPhotos/" + obj.portrait);
-  creerPhotographe (element, "h2", "name", obj.name);
-  creerPhotographe (element, "p", "city", obj.city + ", " + obj.country);
-  creerPhotographe (element, "p", "tagline", obj.tagline);
-  creerPhotographe (element, "p", "price", obj.price + "€/jour");
-  creerPhotographe (element, "ul", "tags", obj.tags);
+  descrptionPhotographe (element, "img", "portrait", "public/images/PhotographersIDPhotos/" + obj.portrait);
+  descrptionPhotographe (element, "h2", "name", obj.name);
+  descrptionPhotographe (element, "p", "city", obj.city + ", " + obj.country);
+  descrptionPhotographe (element, "p", "tagline", obj.tagline);
+  descrptionPhotographe (element, "p", "price", obj.price + "€/jour");
+  descrptionPhotographe (element, "ul", "tags", obj.tags);
 }
 
-function creerPhotographe (parent, type, key, value) {
+function descrptionPhotographe (parent, type, key, value) {
   let element = document.createElement(type);
   element.id = key;
   element.className = key;
