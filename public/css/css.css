@@ -13,8 +13,8 @@ a {
 
 .header {  
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   margin-top: 1em;
   margin-bottom: 0em;
   white-space: nowrap;
@@ -24,15 +24,11 @@ a {
   font-size: 45px;
   font-weight: bold;
   color: #901c1c;
-  margin-left: 1em;  
+  margin-left: 1em; 
 }
 
-.titre {  
-  color: #901c1c;
-  font-size: 25px;
-  margin-right: 2em;
-  margin-top: 0.9em;
-  white-space: nowrap;
+.menutag {  
+  order: 2;
 }
 
 .tagMenu {  
@@ -40,9 +36,16 @@ a {
   justify-content: center;  
   list-style-type: none;
   flex-wrap: wrap;
-  margin-top: 1.6em;
   margin-left: 2em;
   margin-right: 2em;
+}
+
+.titre {  
+  color: #901c1c;
+  font-size: 25px;
+  margin-right: 2em;
+  white-space: nowrap;
+  order: 3;
 }
 
 #listePhotographes {
@@ -114,10 +117,42 @@ a {
   padding-right: 10px;  
 }
 
-
 @media (max-width: 576px) { 
   .personnageVignette {     
     margin: 0em;
     margin-top: 4em;
+  }
+
+.header {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex: 1 1 50%;
+}
+
+  .menutag { 
+    display: flex; 
+    order: 3;
+  }
+
+  .titre {
+    font-size: 15px;;
+  }
+
+  .logo {
+    font-size: 25px;;
+  }
+
+  .tagMenu {  
+    display: flex;
+    justify-content: center;  
+    list-style-type: none;
+    flex-wrap: wrap;
+    margin-top: 1.6em;
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+
+  .titre {
+    order: 2;
   }
 }
