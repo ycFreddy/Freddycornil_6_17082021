@@ -30,10 +30,7 @@ function MenuTags(data) {
   let tabtags = [];
   data.forEach(obj => {    
     if (obj.tags) {
-      tabtags = tabtags.concat(obj.tags);      
-      data.forEach(tab => {
-
-      });
+      tabtags = tabtags.concat(obj.tags); 
     };
   });
   let menutags = [...new Set(tabtags)];    
