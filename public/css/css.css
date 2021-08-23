@@ -227,7 +227,19 @@ a {
   .titre {
     order: 2;
   }
-  .mediasVignette {
+
+  #titremedia {
+    width: 335px;
+  }
+
+  .media {
+    width: 335px;
+    height: 190px;
+  }
+
+   .mediasVignette {
+    display: flex;
+    justify-content: center;
     margin: unset;
   }
 }
