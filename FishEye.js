@@ -1,3 +1,11 @@
+window.onscroll = function (e) {
+  const scroll = document.querySelector(".text-scroll");  
+  scroll.style.animationDuration = "1s";
+  scroll.style.animationFillMode = "forwards";
+  if (window.pageYOffset > 20)  scroll.style.animationName = "affichescroll";
+  else scroll.style.animationName = "cachescroll";
+}
+
 fetch('FishEyeData.json')
   .then(function (response) {
     return response.json();
@@ -110,8 +118,3 @@ function recuperePhotographes(data) {
   };
 };
 */
-
-window.onscroll = function (e) {
-  if (window.pageYOffset > 20)  document.querySelector(".text-scroll").style.display = "block";
-  else document.querySelector(".text-scroll").style.display = "none";
-}
