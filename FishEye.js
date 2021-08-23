@@ -110,3 +110,8 @@ function recuperePhotographes(data) {
   };
 };
 */
+
+window.onscroll = function (e) {
+  if (window.pageYOffset > 20)  document.querySelector(".text-scroll").style.display = "block";
+  else document.querySelector(".text-scroll").style.display = "none";
+}

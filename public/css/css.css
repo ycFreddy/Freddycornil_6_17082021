@@ -7,8 +7,36 @@
   font-family: "DM sans";
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 a {
   text-decoration: none;
+}
+
+.scroll {
+  margin: 0px;
+  padding: 0px;  
+  top: 5px;  
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  background-color: transparent;
+}
+
+.text-scroll {
+  display: none;
+  color: black;
+  padding: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-align: center;
+  top: 0px;
+  background-color: #d3573c;
+  border-radius: 10px;
 }
 
 .header {  
