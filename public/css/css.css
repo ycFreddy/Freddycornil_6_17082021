@@ -16,10 +16,10 @@ a {
 }
 
 .scroll {
-  margin: 0px;
-  padding: 0px;  
+  position: absolute;
   top: 5px;  
-  width: 100%;
+  left: 50%;
+  right: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,7 +36,8 @@ a {
   text-align: center;
   top: 0px;
   background-color: #d3573c;
-  border-radius: 10px;
+  border-radius: 10px;  
+  white-space: nowrap;
 }
 
 .header {  
