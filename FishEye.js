@@ -11,10 +11,8 @@ fetch('FishEyeData.json')
     return response.json();
   })
   .then(function (data) {
-    const photographes = data.photographers;
-    const medias = data.medias;
-    MenuTags(photographes);
-    affichePhotographesParTag(photographes, returnUrlTag());    
+    menuTags(data.photographers);
+    affichePhotographesParTag(data, returnUrlTag(), returnUrlId());    
   })
 
 function returnUrlTag() {
@@ -23,13 +21,19 @@ function returnUrlTag() {
   return url.searchParams.get("tag");
 }
 
+function returnUrlId() {
+  let str = document.location.href; 
+  let url = new URL(str);
+  return url.searchParams.get("id");
+}
+
 function isPhotographeTag(obj, tag) {
   for (let i=0; i<obj.length; i++) {
     if (obj[i] === tag) return true;
   }
 }
 
-function MenuTags(data) {
+function menuTags(data) {
   let parent = document.getElementById("menu");
   let element = document.createElement('ul');
   element.id = "tagMenu";
@@ -51,18 +55,69 @@ function MenuTags(data) {
   }
 }
 
-function affichePhotographesParTag(data, tag="") {
-  let parent = document.getElementById("listePhotographes");
-  data.forEach(obj => {    
-    if (tag) {
-      if (isPhotographeTag(obj.tags, tag) === true) {
-        creerPhotographe(obj, parent);
+function recuperePhotographes(data) {  
+  for (let i=0; i<data.photographers.length; i++) {
+    data.photographers[i]["medias"] = [];
+    data.media.forEach(media => {
+      if (data.photographers[i].id === media.photographerId) {
+        data.photographers[i]["medias"].push(media);
       }
-    }
-    else {
+    });
+  };  
+  return data.photographers;
+};
+
+function affichePhotographesParTag(data, tag="", id="") {
+  const photographes = recuperePhotographes(data);
+  if (id) {
+    photographes.forEach(obj => {
+      if (obj.id == id) {
+        document.getElementById("titre").style.display = "none";
+        document.getElementById("menu").style.display = "none";
+        listemedias(obj.name, obj.medias);
+      }
+    });
+  }
+  else {
+    listePhotographes(photographes,tag);
+  }  
+}
+
+function listemedias(nom, medias) {  
+  medias.forEach(obj => {    
+    let parent = document.getElementById("mediasphotographe");
+    creerVignette(nom, obj, parent);
+  });
+}
+
+function listePhotographes(photographes,tag) {
+  let parent = document.getElementById("listePhotographes");
+  photographes.forEach(obj => {    
+  if (tag) {
+    if (isPhotographeTag(obj.tags, tag) === true) {
       creerPhotographe(obj, parent);
     }
+  }
+  else {
+    creerPhotographe(obj, parent);
+  }
   });
+}
+
+function creerVignette (nom, media, parent) {
+  let element = document.createElement('div');
+  element.id = "mediasVignette";
+  element.className = "mediasVignette";
+  parent.appendChild(element);
+  let title = document.createElement('div');
+  title.id = "titremedia";
+  title.className = "lienPersonnage";  
+  element.appendChild(title);
+  nom = nom.replace(/ /g, '');
+  if (media.image) descriptionPhotographe (title, "img", "media", "public/images/" + nom + "/" + media.image);
+  else descriptionPhotographe (title, "video", "media", "public/images/" + nom + "/" + media.video);
+  descriptionPhotographe (title, "p", "nommedia", media.title);
+  descriptionPhotographe (title, "p", "likes", media.likes + '<i class="fas fa-heart"></i>');
 }
 
 function creerPhotographe(obj, parent) {
@@ -83,7 +138,7 @@ function creerPhotographe(obj, parent) {
   descriptionPhotographe (element, "ul", "tags", obj.tags);
 }
 
-function descriptionPhotographe (parent, type, key, value, param="") { 
+function descriptionPhotographe (parent, type, key, value) { 
   let element = document.createElement(type);
   element.id = key;
   element.className = key;  
@@ -99,22 +154,11 @@ function descriptionPhotographe (parent, type, key, value, param="") {
       element.appendChild(li);
     }
   }
+  else if (type== "video") {
+    element.src = value;
+  }
   else {
       element.innerHTML = value;
   }  
   parent.appendChild(element);
 }
-/*
-function recuperePhotographes(data) {  
-  const photographes = data.photographers;
-  const medias = data.media;  
-  for (let i=0; i<photographes.length; i++) {
-    photographes[i]["medias"] = [];
-    medias.forEach(media => {
-      if (photographes[i].id === media.photographerId) {
-        photographes[i]["medias"].push(media);
-      }
-    });
-  };
-};
-*/
