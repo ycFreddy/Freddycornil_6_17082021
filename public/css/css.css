@@ -91,6 +91,35 @@ a {
   flex: 1 0;
 }
 
+#photographe {
+  background: #fafafa;
+  padding: 2em;
+  margin: 2em;
+}
+
+.namephotographe {
+  font-size: 60px;
+  color: #d3573c;
+  font-weight: normal;
+}
+
+.cityphotographe {
+  color: #901c1c;
+  font-size: 24px;  
+  font-weight: bold;
+}
+
+.taglinephotographe {
+  font-size: 18px;
+}
+
+.tagsphotographe {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
 .portrait {
   width: 200px;
   height: 200px;
@@ -146,7 +175,7 @@ a {
   padding-right: 10px;  
 }
 
-#mediasphotographe {
+#photographe, #mediasphotographe {
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -69,11 +69,12 @@ function recuperePhotographes(data) {
 
 function affichePhotographesParTag(data, tag="", id="") {
   const photographes = recuperePhotographes(data);
-  if (id) {
+  if (id) {    
     photographes.forEach(obj => {
       if (obj.id == id) {
         document.getElementById("titre").style.display = "none";
         document.getElementById("menu").style.display = "none";
+        affichePhotographe(obj, id)
         listemedias(obj.name, obj.medias);
       }
     });
@@ -81,6 +82,24 @@ function affichePhotographesParTag(data, tag="", id="") {
   else {
     listePhotographes(photographes,tag);
   }  
+}
+
+function affichePhotographe(obj, id) {
+  let parent = document.getElementById("photographe");
+  let element = document.createElement('div');
+  element.id = "personnageVignette";
+  element.className = "photographeVignette";
+  parent.appendChild(element);
+  let lien = document.createElement('a');
+  lien.id = "lienPersonnage";
+  lien.className = "lienPersonnage";
+  lien.href = "?id=" + obj.id;
+  parent.appendChild(lien);  
+  descriptionPhotographe (element, "h1", "namephotographe", obj.name);
+  descriptionPhotographe (element, "p", "cityphotographe", obj.city + ", " + obj.country);
+  descriptionPhotographe (element, "p", "taglinephotographe", obj.tagline);  
+  descriptionPhotographe (element, "ul", "tagsphotographe", obj.tags);
+  descriptionPhotographe (lien, "img", "portrait", "public/images/PhotographersIDPhotos/" + obj.portrait);
 }
 
 function listemedias(nom, medias) {  
@@ -111,7 +130,7 @@ function creerVignette (nom, media, parent) {
   parent.appendChild(element);
   let title = document.createElement('div');
   title.id = "titremedia";
-  title.className = "lienPersonnage";  
+  title.className = "titremedia";  
   element.appendChild(title);
   nom = nom.replace(/ /g, '');
   if (media.image) descriptionPhotographe (title, "img", "media", "public/images/" + nom + "/" + media.image);
