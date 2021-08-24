@@ -99,7 +99,7 @@ function affichePhotographe(obj, id) {
   descriptionPhotographe (element, "p", "cityphotographe", obj.city + ", " + obj.country);
   descriptionPhotographe (element, "p", "taglinephotographe", obj.tagline);  
   descriptionPhotographe (element, "ul", "tagsphotographe", obj.tags);
-  descriptionPhotographe (lien, "img", "portrait", "public/images/PhotographersIDPhotos/" + obj.portrait);
+  descriptionPhotographe (lien, "img", "portraitphotographe", "public/images/PhotographersIDPhotos/" + obj.portrait);
 }
 
 function listemedias(nom, medias) {  

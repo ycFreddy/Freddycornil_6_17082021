@@ -77,49 +77,6 @@ a {
   order: 3;
 }
 
-#listePhotographes {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.personnageVignette { 
-  text-align: center;
-  margin: 4em;
-  flex: 1 0;
-}
-
-#photographe {
-  background: #fafafa;
-  padding: 2em;
-  margin: 2em;
-}
-
-.namephotographe {
-  font-size: 60px;
-  color: #d3573c;
-  font-weight: normal;
-}
-
-.cityphotographe {
-  color: #901c1c;
-  font-size: 24px;  
-  font-weight: bold;
-}
-
-.taglinephotographe {
-  font-size: 18px;
-}
-
-.tagsphotographe {
-  display: flex;
-  justify-content: flex-start;
-  margin: 0;
-  padding: 0;
-}
-
 .portrait {
   width: 200px;
   height: 200px;
@@ -174,8 +131,62 @@ a {
   padding-left: 10px;
   padding-right: 10px;  
 }
+#photographe {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background: #fafafa;
+  padding: 2em;
+  margin: 2em;
+}
 
-#photographe, #mediasphotographe {
+.portraitphotographe {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+#listePhotographes {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.personnageVignette { 
+  text-align: center;
+  margin: 4em;
+  flex: 1 0;
+}
+
+.namephotographe {
+  font-size: 60px;
+  color: #d3573c;
+  font-weight: normal;
+}
+
+.cityphotographe {
+  color: #901c1c;
+  font-size: 24px;  
+  font-weight: bold;
+}
+
+.taglinephotographe {
+  font-size: 18px;
+}
+
+.tagsphotographe {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+#mediasphotographe {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -240,7 +251,8 @@ a {
   }
 
   .logo {
-    font-size: 25px;;
+    font-size: 35px;
+    margin: 0.5em;
   }
 
   .tagMenu {  
@@ -270,6 +282,64 @@ a {
     display: flex;
     justify-content: center;
     margin: unset;
+  }
+
+  #photographe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background: transparent;
+    width: 335px;
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  
+  #listePhotographes {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .personnageVignette { 
+    text-align: center;
+  }
+  
+  .namephotographe {
+    font-size: 36px;
+    color: #d3573c;
+    font-weight: normal;
+  }
+  
+  .cityphotographe {
+    color: #901c1c;
+    font-size: 13px;
+    font-weight: normal;
+  }
+  
+  .taglinephotographe {
+    font-size: 13px;
+    color: #525252;
+  }
+  
+  .tagsphotographe {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;    
+    flex-wrap: wrap;
+  }
+
+  .portraitphotographe {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
   }
 }
 
