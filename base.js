@@ -1,14 +1,10 @@
 // Récupration des paramètres Url
 class urlParams{ 
   static returnUrlTag() {
-    let str = document.location.href; 
-    let url = new URL(str);
-    return url.searchParams.get("tag");
+    return new URL(document.location.href).searchParams.get("tag");
   }    
   static returnUrlId() {
-    let str = document.location.href; 
-    let url = new URL(str);
-    return url.searchParams.get("id");
+    return new URL(document.location.href).searchParams.get("id");
   }
 }
 
