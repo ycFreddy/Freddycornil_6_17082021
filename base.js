@@ -13,7 +13,7 @@ class urlParams{
 }
 
 // formatage des datas json
-let Factory = function () {
+const Factory = function () {
   this.creerPhotographe = function (data) {
     let photographe = [];
     photographe.nom = data.name;
