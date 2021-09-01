@@ -8,24 +8,25 @@ class urlParams{
   }
 }
 
+class photographe {
+  constructor(data) {
+    this._nom = data.name;
+    this._id = data.id;
+    this._ville = data.city;
+    this._pays = data.country;
+    this._lieu = data.city + ", " + data.country;
+    this._tags = data.tags;
+    this._tagline = data.tagline;
+    this._prix = data.price;
+    this._prixFormat = data.price + "€/jour";
+    this._portrait = data.portrait;
+    this._portraitUrl = "public/images/PhotographersIDPhotos/" + data.portrait;
+    this._medias = data.medias;
+  }
+}
+
 // formatage des datas json
 const Factory = function () {
-  this.creerPhotographe = function (data) {
-    let photographe = [];
-    photographe.nom = data.name;
-    photographe.id = data.id;
-    photographe.ville = data.city;
-    photographe.pays = data.country;
-    photographe.lieu = data.city + ", " + data.country;
-    photographe.tags = data.tags;
-    photographe.tagline = data.tagline;
-    photographe.prix = data.price;
-    photographe.prixFormat = data.price + "€/jour";
-    photographe.portrait = data.portrait;
-    photographe.portraitUrl = "public/images/PhotographersIDPhotos/" + data.portrait;
-    photographe.medias = data.medias;
-    return photographe;
-  }
   this.creerMedia = function (data, photographe) {
     let media = [];        
     media = new mediaUrl(data, photographe);
@@ -59,7 +60,7 @@ fetch('FishEyeData.json')
   return response.json();
   })
   .then(function (data) {
-    let photographes = [];
+    let photographes = [];    
     let factory = new Factory();
     for (let i=0; i<data.photographers.length; i++) {        
       data.photographers[i].medias = [];
@@ -68,7 +69,7 @@ fetch('FishEyeData.json')
           data.photographers[i].medias.push(factory.creerMedia(data.media[j], data.photographers[i].name));
         }          
       };
-      photographes[data.photographers[i].id] = factory.creerPhotographe(data.photographers[i]);
+      photographes[data.photographers[i].id] = new photographe(data.photographers[i]);      
     };
     affichePhotographes(photographes, urlParams.returnUrlTag(),urlParams.returnUrlId());
 })
@@ -77,7 +78,7 @@ fetch('FishEyeData.json')
 function affichePhotographes(photographes, tag="", id="") {
   if (id) {
     affichePhotographe(photographes[id], id)
-    listemedias(photographes[id].nom, photographes[id].medias);
+    listemedias(photographes[id]._medias);
   }
   else {
     menuTags(photographes);
@@ -94,8 +95,8 @@ function menuTags(data) {
   parent.appendChild(element);
   let tabtags = [];
   data.forEach(obj => {    
-    if (obj.tags) {
-      tabtags = tabtags.concat(obj.tags); 
+    if (obj._tags) {
+      tabtags = tabtags.concat(obj._tags); 
     };
   });
   let menutags = [...new Set(tabtags)];    
@@ -118,13 +119,13 @@ function isPhotographeTag(obj, tag) {
 // Affiche la liste des photographes en fonction du tag sélectionné
 function listePhotographes(photographes,tag) {  
   photographes.forEach(obj => {    
-  if (tag) {if (isPhotographeTag(obj.tags, tag) === true) creerPhotographe(obj);}
+  if (tag) {if (isPhotographeTag(obj._tags, tag) === true) creerPhotographe(obj);}
   else {creerPhotographe(obj);}
   });
 }
 
 // Affiche la liste des medias d'un photographe
-function listemedias(nom, medias) {  
+function listemedias(medias) { 
   medias.forEach(obj => {        
     creerVignetteMedia(obj);
   });
@@ -137,15 +138,15 @@ function affichePhotographe(photographe) {
   let parent = document.getElementById("photographe");
   let element = creerConteneur("div", "personnageVignette", "photographeVignette");
   parent.appendChild(element);
-  descriptionPhotographe (element, "h1", "namephotographe", photographe.nom);
-  descriptionPhotographe (element, "p", "cityphotographe", photographe.lieu);
-  descriptionPhotographe (element, "p", "taglinephotographe", photographe.tagline);  
-  descriptionPhotographe (element, "ul", "tagsphotographe", photographe.tags);  
-  descriptionPhotographe (parent, "p", "contact", "Contactez-moi");  
+  insertElement (element, "h1", "namephotographe", photographe._nom);
+  insertElement (element, "p", "cityphotographe", photographe._lieu);
+  insertElement (element, "p", "taglinephotographe", photographe._tagline);  
+  insertElement (element, "ul", "tagsphotographe", photographe._tags);  
+  insertElement (parent, "p", "contact", "Contactez-moi");  
   let lien = creerConteneur("a", "lienPersonnage", "lienPersonnage");
-  lien.href = "?id=" + photographe.id;    
+  lien.href = "?id=" + photographe._id;    
   parent.appendChild(lien);  
-  descriptionPhotographe (lien, "img", "portraitphotographe", photographe.portraitUrl);  
+  insertElement (lien, "img", "portraitphotographe", photographe._portraitUrl);  
 }
 
 // Description d'un photographe sur la page d'accueil
@@ -154,14 +155,14 @@ function creerPhotographe(photographe) {
   let element = creerConteneur("div", "personnageVignette", "personnageVignette");
   parent.appendChild(element);
   let lien = creerConteneur("a", "lienPersonnage", "lienPersonnage");
-  lien.href = "?id=" + photographe.id;
+  lien.href = "?id=" + photographe._id;
   element.appendChild(lien);
-  descriptionPhotographe (lien, "img", "portrait", photographe.portraitUrl);
-  descriptionPhotographe (lien, "h2", "name", photographe.nom);
-  descriptionPhotographe (element, "p", "city", photographe.lieu);
-  descriptionPhotographe (element, "p", "tagline", photographe.tagline);
-  descriptionPhotographe (element, "p", "price", photographe.prixFormat);
-  descriptionPhotographe (element, "ul", "tags", photographe.tags);
+  insertElement (lien, "img", "portrait", photographe._portraitUrl);
+  insertElement (lien, "h2", "name", photographe._nom);
+  insertElement (element, "p", "city", photographe._lieu);
+  insertElement (element, "p", "tagline", photographe._tagline);
+  insertElement (element, "p", "price", photographe._prixFormat);
+  insertElement (element, "ul", "tags", photographe._tags);
 }
 
 // Affiche la vignette d'un média d'un photographe sur sa page
@@ -171,9 +172,9 @@ function creerVignetteMedia (media) {
   parent.appendChild(element);
   let title = creerConteneur("div", "titremedia", "titremedia");
   element.appendChild(title);
-  descriptionPhotographe (title, media.type, "media", media.mediaUrl);  
-  descriptionPhotographe (title, "p", "nommedia", media.titre);
-  descriptionPhotographe (title, "p", "likes", media.likes + '<i class="fas fa-heart"></i>');
+  insertElement (title, media.type, "media", media.mediaUrl);  
+  insertElement (title, "p", "nommedia", media.titre);
+  insertElement (title, "p", "likes", media.likes + '<i class="fas fa-heart"></i>');
 }
 
 // Créer un node/conteneur
@@ -185,7 +186,7 @@ function creerConteneur(type, nomId, nomClass) {
 }
 
 // formate l'affiche des champs d'un photographe
-function descriptionPhotographe (parent, type, key, value) { 
+function insertElement (parent, type, key, value) {   
   let element = creerConteneur(type, key, key);  
   if ((type=="img") || (type=="video")) {
     element.src = value; 
