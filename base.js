@@ -8,6 +8,7 @@ class urlParams{
   }
 }
 
+// formatge datas photographes
 class photographe {
   constructor(data) {
     this._nom = data.name;
@@ -25,7 +26,7 @@ class photographe {
   }
 }
 
-// formatage des datas json
+// formatage datas medias
 const Factory = function () {
   this.creerMedia = function (data, photographe) {
     let media = [];        
@@ -142,7 +143,12 @@ function affichePhotographe(photographe) {
   insertElement (element, "p", "cityphotographe", photographe._lieu);
   insertElement (element, "p", "taglinephotographe", photographe._tagline);  
   insertElement (element, "ul", "tagsphotographe", photographe._tags);  
-  insertElement (parent, "p", "contact", "Contactez-moi");  
+  let contactbox = creerConteneur("div", "contactbox", "contactbox");  
+  parent.appendChild(contactbox);
+  let contact = creerConteneur("a", "contact", "contact");
+  contact.innerHTML = "contactez-moi";
+  contact.addEventListener("click", function(){modalecontact(photographe._nom);}, false);
+  contactbox.appendChild(contact);
   let lien = creerConteneur("a", "lienPersonnage", "lienPersonnage");
   lien.href = "?id=" + photographe._id;    
   parent.appendChild(lien);  

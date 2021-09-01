@@ -2,7 +2,6 @@
 
 * {
   margin: 0;
-  margin-bottom: 5px;  
   padding: 0;
   font-family: "DM sans";
 }
@@ -133,7 +132,7 @@ a {
 }
 #photographe {
   display: none;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -227,6 +226,127 @@ a {
 
 .fa-heart {
   padding: 5px;
+}
+
+.contactbox{
+  flex: auto;
+  padding-left: 1em;
+  padding-top: 1.8em;
+}
+
+.contact {
+  cursor: pointer;
+  width: fit-content;
+  border-radius: 5px;
+  color: white;
+  background: #901c1c;
+  padding: 1em; 
+  white-space: nowrap;
+}
+
+.contact:hover {
+  color: black;
+  background: #d3573c;
+}
+
+.modalebox {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: auto;
+  right: auto;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: transparent;
+}
+
+.modalecontent {
+  margin: 2% auto;
+  width: 100%;
+  max-width: 500px;
+  animation-name: affichescroll;
+  animation-duration: 0.8s;
+  background: #d3573c;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  padding-top: 10px;
+  box-shadow: -20px 20px 20px 0px rgba(0,0,0,0.1);
+}
+
+.modaletitre {
+  width: 60%;  
+  padding-left: 0.7em;
+  color: black;
+  font-weight: normal;
+}
+
+.modalebody {
+  padding: 15px 1.5em;
+  margin: 15px auto;
+}
+
+.modaleclose {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 32px;
+  height: 32px;
+  opacity: 1;
+  cursor: pointer;
+  transform: scale(0.7);
+}
+.modaleclose:before,
+.modaleclose:after {
+  position: absolute;
+  left: 15px;
+  content: " ";
+  height: 33px;
+  width: 3px;
+  background-color: #fff;
+}
+.modaleclose:before {
+  transform: rotate(45deg);
+}
+.modaleclose:after {
+  transform: rotate(-45deg);
+}
+
+.modalelabel {
+  width: 100%;
+  font-size: 20px;
+  color: black;
+}
+
+.modaleinput {
+  width: 100%;
+  border-radius: 5px;
+  height: 35px;
+  box-sizing: border-box;
+  border-color: transparent;
+}
+
+.modaletextarea {
+  width: 100%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border-color: transparent;
+}
+
+.modalesubmit {
+  cursor: pointer;
+  width: fit-content;
+  border-radius: 5px;
+  color: white;
+  background: #901c1c;
+  padding: 1em;
+  padding-left: 2em;
+  padding-right: 2em;
+  white-space: nowrap;
+  border-color: transparent;
 }
 
 @media (max-width: 576px) { 
@@ -340,6 +460,22 @@ a {
     height: 100px;
     object-fit: cover;
     border-radius: 50%;
+  }
+  .contactbox{
+    position: absolute;
+    bottom: 10px;  
+    left: 50%;
+    right: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    flex: auto;
+    padding: unset;
+  }
+  .modalecontentsubmit {
+    display: flex;
+    justify-content: center;
   }
 }
 
