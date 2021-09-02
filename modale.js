@@ -1,4 +1,5 @@
-window.onscroll = function (e) {
+/* eslint-disable no-undef */
+window.onscroll = e => {
   const scroll = document.querySelector('.text-scroll')
   scroll.style.animationDuration = '1s'
   scroll.style.animationFillMode = 'forwards'
