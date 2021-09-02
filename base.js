@@ -60,24 +60,23 @@ class MediaUrl {
 }
 
 // Récupère les datas du json
-fetch('FishEyeData.json')
-  .then((response) => {
-    return response.json()
-  })
-  .then((data) => {
-    const photographes = []
-    const factory = new Factory()
-    for (const i of data.photographers) {
-      i.medias = []
-      for (const j of data.media) {
-        if (i.id === j.photographerId) {
-          i.medias.push(factory.creerMedia(j, i.name))
-        }
-      };
-      photographes[i.id] = new Photographe(i)
+const run = fetch('FishEyeData.json')
+run.then(response => {
+  return response.json()
+}).then(data => {
+  const photographes = []
+  const factory = new Factory()
+  for (const i of data.photographers) {
+    i.medias = []
+    for (const j of data.media) {
+      if (i.id === j.photographerId) {
+        i.medias.push(factory.creerMedia(j, i.name))
+      }
     };
-    affichePhotographes(photographes, urlParams.returnUrlTag(), urlParams.returnUrlId())
-  })
+    photographes[i.id] = new Photographe(i)
+  };
+  affichePhotographes(photographes, urlParams.returnUrlTag(), urlParams.returnUrlId())
+})
 
 // Routage de l'affichage en fonction des paramètres url
 const affichePhotographes = (photographes, tag = '', id = '') => {
