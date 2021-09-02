@@ -159,11 +159,11 @@ const listemedias = (medias, tri = '') => {
   document.getElementById('mediasphotographe').innerHTML = ''
   const triParMap = (map, compareFn) => (a, b) => compareFn(map(a), map(b))
   const parValeur = (a, b) => a - b
-  if (tri == 'likes') {
+  if (tri === 'likes') {
     const triVersLikes = e => e.likes
     const parLikes = triParMap(triVersLikes, parValeur)
     medias.sort(parLikes).reverse().forEach(obj => { creerVignetteMedia(obj) })
-  } else if (tri == 'date') {
+  } else if (tri === 'date') {
     const triVersDate = e => new Date(e.date).getTime()
     const parDate = triParMap(triVersDate, parValeur)
     medias.sort(parDate).forEach(obj => { creerVignetteMedia(obj) })
