@@ -21,14 +21,14 @@ class photographe {
     this._prix = data.price;
     this._prixFormat = data.price + "€/jour";
     this._portrait = data.portrait;
-    this._portraitUrl = "public/images/PhotographersIDPhotos/" + data.portrait;
+    this._portraitUrl = `public/images/PhotographersIDPhotos/${data.portrait}`;
     this._medias = data.medias;
   }
 }
 
 // formatage datas medias
 const Factory = function () {
-  this.creerMedia = function (data, photographe) {
+  this.creerMedia = (data, photographe) => {
     let media = [];        
     media = new mediaUrl(data, photographe);
     media.id = data.id;
@@ -44,13 +44,13 @@ const Factory = function () {
 }
 
 // sélection du type de média
-let mediaUrl = function (data, photographe) {
+const mediaUrl = function (data, photographe) {
   if (data.image) {
-    this.mediaUrl = "public/images/" + photographe.replace(/ /g, '') + "/" + data.image;
+    this.mediaUrl = `public/images/${photographe.replace(/ /g, '')}/${data.image}`;
     this.type = "img";
   }
   else {
-    this.mediaUrl = "public/images/" + photographe.replace(/ /g, '') + "/" + data.video;
+    this.mediaUrl = `public/images/${photographe.replace(/ /g, '')}/${data.video}`;
     this.type = "video";
   }
 };
@@ -76,7 +76,7 @@ fetch('FishEyeData.json')
 })
 
 // Routage de l'affichage en fonction des paramètres url
-function affichePhotographes(photographes, tag="", id="") {
+const affichePhotographes = (photographes, tag="", id="") => {
   if (id) {
     affichePhotographe(photographes[id], id);
     listemedias(photographes[id]._medias, "likes");    
@@ -89,7 +89,7 @@ function affichePhotographes(photographes, tag="", id="") {
 }
 
 // Affiche de le menu de tags uniques
-function menuTags(data) {
+const menuTags = (data) => {
   let parent = document.getElementById("menu");
   let element = document.createElement('ul');
   element.id = "tagMenu";
@@ -106,20 +106,18 @@ function menuTags(data) {
       let li = document.createElement("li");
       li.id = "tagli";
       li.className = "tagli";
-      li.innerHTML = "<a href='?tag=" + menutags[i] + "' class='taglien'>#" + menutags[i] + "</a>";
+      li.innerHTML = `<a href=?tag=${menutags[i]} class="taglien">#${menutags[i]}</a>`;
       element.appendChild(li);
   }
 }
 
 // Photographes corrospondant au Tag sélectionné
-function isPhotographeTag(obj, tag) {
-  for (let i=0; i<obj.length; i++) {
-    if (obj[i] === tag) return true;
-  }
+const isPhotographeTag = (obj, tag) => {
+  for (let i=0; i<obj.length; i++) {if (obj[i] === tag) return true;}
 }
 
 // Affiche la liste des photographes en fonction du tag sélectionné
-function listePhotographes(photographes,tag) {  
+const listePhotographes = (photographes,tag) => {
   photographes.forEach(obj => {    
   if (tag) {if (isPhotographeTag(obj._tags, tag) === true) creerPhotographe(obj);}
   else {creerPhotographe(obj);}
@@ -127,7 +125,7 @@ function listePhotographes(photographes,tag) {
 }
 
 // Affiche la sélection par tri
-function triMedias(photographe) {  
+const triMedias = (photographe) => {
   let parent = document.getElementById("tri");
   let triConteneur = creerConteneur("div", "trimedias", "trimedias");
   parent.appendChild(triConteneur);
@@ -137,9 +135,8 @@ function triMedias(photographe) {
   let selectTri = creerConteneur("select", "selectTri", "selectTri");
   parent.appendChild(selectTri);
   selectTri.addEventListener("change", function(event) {
-    event.stopPropagation();
-    var option = event.target;
-    listemedias(photographe, option.value);
+    event.stopPropagation();    
+    listemedias(photographe, event.target.value);
   });
   let selectOpt0 = creerConteneur("option", "sellikes", "selectopt");
   selectOpt0.value = "likes";
@@ -156,40 +153,32 @@ function triMedias(photographe) {
 }
 
 // Affiche la liste des medias d'un photographe
-function listemedias(medias, tri="") { 
+const listemedias = (medias, tri="") => { 
   document.getElementById("mediasphotographe").innerHTML = "";
   const triParMap = (map,compareFn) => (a,b) => compareFn(map(a),map(b));
   const parValeur = (a,b) => a - b;
   if (tri == "likes") {      
     const triVersLikes = e => e.likes;  
     const parLikes = triParMap(triVersLikes,parValeur);
-    medias.sort(parLikes).reverse().forEach(obj => {        
-      creerVignetteMedia(obj);
-    });
+    medias.sort(parLikes).reverse().forEach(obj => {creerVignetteMedia(obj);});
   }
   else if (tri == "date") {
     const triVersDate = e => new Date(e.date).getTime();    
     const parDate = triParMap(triVersDate,parValeur);    
-    medias.sort(parDate).forEach(obj => {        
-      creerVignetteMedia(obj);
-    });
+    medias.sort(parDate).forEach(obj => {creerVignetteMedia(obj);});
   }
   else {
     const parTexte = function compare(a, b) {
-      if (a.titre < b.titre)
-         return -1;
-      if (a.titre > b.titre)
-         return 1;
+      if (a.titre < b.titre) return -1;
+      if (a.titre > b.titre) return 1;
       return 0;
     };    
-    medias.sort(parTexte).forEach(obj => {        
-      creerVignetteMedia(obj);
-    });
+    medias.sort(parTexte).forEach(obj => {creerVignetteMedia(obj);});
   }
 }
 
 // Description d'un photographe sur sa page
-function affichePhotographe(photographe) {
+const affichePhotographe = (photographe) => {
   document.getElementById("titre").style.display = "none";
   document.getElementById("photographe").style.display = "flex"; 
   let parent = document.getElementById("photographe");
@@ -206,18 +195,18 @@ function affichePhotographe(photographe) {
   contact.addEventListener("click", function(){modalecontact(photographe._nom);}, false);
   contactbox.appendChild(contact);
   let lien = creerConteneur("a", "lienPersonnage", "lienPersonnage");
-  lien.href = "?id=" + photographe._id;    
+  lien.href = `?id=${photographe._id}`;
   parent.appendChild(lien);  
   insertElement (lien, "img", "portraitphotographe", photographe._portraitUrl);  
 }
 
 // Description d'un photographe sur la page d'accueil
-function creerPhotographe(photographe) {
+const creerPhotographe = (photographe) => {
   let parent = document.getElementById("listePhotographes");
   let element = creerConteneur("div", "personnageVignette", "personnageVignette");
   parent.appendChild(element);
   let lien = creerConteneur("a", "lienPersonnage", "lienPersonnage");
-  lien.href = "?id=" + photographe._id;
+  lien.href = `?id=${photographe._id}`;
   element.appendChild(lien);
   insertElement (lien, "img", "portrait", photographe._portraitUrl);
   insertElement (lien, "h2", "name", photographe._nom);
@@ -228,7 +217,7 @@ function creerPhotographe(photographe) {
 }
 
 // Affiche la vignette d'un média d'un photographe sur sa page
-function creerVignetteMedia (media) {
+const creerVignetteMedia = (media) => {
   let parent = document.getElementById("mediasphotographe");  
   let element = creerConteneur("div", "mediasVignette", "mediasVignette");
   parent.appendChild(element);
@@ -236,11 +225,11 @@ function creerVignetteMedia (media) {
   element.appendChild(title);
   insertElement (title, media.type, "media", media.mediaUrl);  
   insertElement (title, "p", "nommedia", media.titre);
-  insertElement (title, "p", "likes", media.likes + '<i class="fas fa-heart"></i>');
+  insertElement (title, "p", "likes", `${media.likes}<i class="fas fa-heart"></i>`);
 }
 
 // Créer un node/conteneur
-function creerConteneur(type, nomId, nomClass) {
+const creerConteneur = (type, nomId, nomClass) => {
   let element= document.createElement(type);
   element.id = nomId;
   element.className = nomClass;
@@ -248,22 +237,18 @@ function creerConteneur(type, nomId, nomClass) {
 }
 
 // formate l'affiche des champs d'un photographe
-function insertElement (parent, type, key, value) {   
+const insertElement = (parent, type, key, value) => {
   let element = creerConteneur(type, key, key);  
-  if ((type=="img") || (type=="video")) {
-    element.src = value; 
-  }
+  if ((type=="img") || (type=="video")) {element.src = value;}
   else if (type=="ul") {
     for (let i=0; i<value.length; i++) {
       let li = document.createElement("li");
       li.id = "tagli";
       li.className = "tagli";
-      li.innerHTML = "<a href='?tag=" + value[i] + "' class='taglien'>#" + value[i] + "</a>";
+      li.innerHTML = `<a href=?tag=${value[i]} class=taglien>#${value[i]}</a>`;
       element.appendChild(li);
     }
   }
-  else {
-      element.innerHTML = value;
-  }  
+  else {element.innerHTML = value;}  
   parent.appendChild(element);
 }

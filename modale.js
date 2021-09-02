@@ -7,7 +7,7 @@ window.onscroll = function (e) {
 }
 
 // Création du formulaire de contact
-function modalecontact(photographe) {
+const modalecontact = (photographe) => {
   let parent = document.getElementById("body");
   let modale = creerConteneur("div", "modalebox", "modalebox");    
   modale.style.display = "block";  
@@ -71,6 +71,6 @@ function modalecontact(photographe) {
 }
 
 // Ferme la modale
-function closeModale(modale) {
+const closeModale = (modale) => {
   modale.style.display = "none";
 }
