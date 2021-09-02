@@ -136,7 +136,7 @@ const triMedias = (photographe) => {
   texttri.innerHTML = 'Trier par'
   const selectTri = creerConteneur('select', 'selectTri', 'selectTri')
   parent.appendChild(selectTri)
-  selectTri.addEventListener('change', function (event) {
+  selectTri.addEventListener('change', (event) => {
     event.stopPropagation()
     listemedias(photographe, event.target.value)
   })
@@ -168,7 +168,7 @@ const listemedias = (medias, tri = '') => {
     const parDate = triParMap(triVersDate, parValeur)
     medias.sort(parDate).forEach(obj => { creerVignetteMedia(obj) })
   } else {
-    const parTexte = function compare (a, b) {
+    const parTexte = (a, b) => {
       if (a.titre < b.titre) return -1
       if (a.titre > b.titre) return 1
       return 0
@@ -192,7 +192,7 @@ const affichePhotographe = (photographe) => {
   parent.appendChild(contactbox)
   const contact = creerConteneur('a', 'contact', 'contact')
   contact.innerHTML = 'contactez-moi'
-  contact.addEventListener('click', function () { modalecontact(photographe._nom) }, false)
+  contact.addEventListener('click', () => { modalecontact(photographe._nom) })
   contactbox.appendChild(contact)
   const lien = creerConteneur('a', 'lienPersonnage', 'lienPersonnage')
   lien.href = `?id=${photographe._id}`

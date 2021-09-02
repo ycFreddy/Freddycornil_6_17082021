@@ -19,7 +19,7 @@ const modalecontact = (photographe) => {
   const modaleTitre = creerConteneur('h1', 'modaletitre', 'modaletitre')
   modaleTitre.innerHTML = 'Contactez-moi ' + photographe
   const modaleClose = creerConteneur('span', 'modaleclose', 'modaleclose')
-  modaleClose.addEventListener('click', function () { closeModale(modale) }, false)
+  modaleClose.addEventListener('click', () => { closeModale(modale) }, false)
   modale.appendChild(modaleContent)
   modaleContent.appendChild(modaleTop)
   modaleTop.appendChild(modaleTitre)
