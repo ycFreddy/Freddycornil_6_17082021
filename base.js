@@ -249,6 +249,7 @@ const insertElement = (parent, type, key, value) => {
       element.appendChild(li);
     }
   }
-  else {element.innerHTML = value;}  
+  else {element.innerHTML = value;}
+  if (type == 'video') element.play();
   parent.appendChild(element);
 }
