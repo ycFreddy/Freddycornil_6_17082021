@@ -28,30 +28,34 @@ class Photographe {
 }
 
 // formatage datas medias
-const Factory = function () {
-  this.creerMedia = (data, photographe) => {
-    let media = []
-    media = new MediaUrl(data, photographe)
-    media.id = data.id
-    media.idPhotographe = data.photographerId
-    media.titre = data.title
-    media.image = data.image
-    media.tags = data.tags
-    media.likes = data.likes
-    media.date = data.date
-    media.prix = data.price
-    return media
+class Factory {
+  constructor () {
+    this.creerMedia = (data, photographe) => {
+      let media = []
+      media = new MediaUrl(data, photographe)
+      media.id = data.id
+      media.idPhotographe = data.photographerId
+      media.titre = data.title
+      media.image = data.image
+      media.tags = data.tags
+      media.likes = data.likes
+      media.date = data.date
+      media.prix = data.price
+      return media
+    }
   }
 }
 
 // sélection du type de média
-const MediaUrl = function (data, photographe) {
-  if (data.image) {
-    this.mediaUrl = `public/images/${photographe.replace(/ /g, '')}/${data.image}`
-    this.type = 'img'
-  } else {
-    this.mediaUrl = `public/images/${photographe.replace(/ /g, '')}/${data.video}`
-    this.type = 'video'
+class MediaUrl {
+  constructor (data, photographe) {
+    if (data.image) {
+      this.mediaUrl = `public/images/${photographe.replace(/ /g, '')}/${data.image}`
+      this.type = 'img'
+    } else {
+      this.mediaUrl = `public/images/${photographe.replace(/ /g, '')}/${data.video}`
+      this.type = 'video'
+    }
   }
 }
 
