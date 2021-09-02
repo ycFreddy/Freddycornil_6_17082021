@@ -78,8 +78,9 @@ fetch('FishEyeData.json')
 // Routage de l'affichage en fonction des paramètres url
 function affichePhotographes(photographes, tag="", id="") {
   if (id) {
-    affichePhotographe(photographes[id], id)
-    listemedias(photographes[id]._medias);
+    affichePhotographe(photographes[id], id);
+    listemedias(photographes[id]._medias, "likes");    
+    triMedias(photographes[id]._medias);
   }
   else {
     menuTags(photographes);
@@ -125,11 +126,66 @@ function listePhotographes(photographes,tag) {
   });
 }
 
-// Affiche la liste des medias d'un photographe
-function listemedias(medias) { 
-  medias.forEach(obj => {        
-    creerVignetteMedia(obj);
+// Affiche la sélection par tri
+function triMedias(photographe) {  
+  let parent = document.getElementById("tri");
+  let triConteneur = creerConteneur("div", "trimedias", "trimedias");
+  parent.appendChild(triConteneur);
+  let texttri = creerConteneur("p", "textetri", "textetri");
+  triConteneur.appendChild(texttri);
+  texttri.innerHTML = "Trier par";
+  let selectTri = creerConteneur("select", "selectTri", "selectTri");
+  parent.appendChild(selectTri);
+  selectTri.addEventListener("change", function(event) {
+    event.stopPropagation();
+    var option = event.target;
+    listemedias(photographe, option.value);
   });
+  let selectOpt0 = creerConteneur("option", "sellikes", "selectopt");
+  selectOpt0.value = "likes";
+  selectOpt0.innerHTML = "Popularité";
+  selectTri.appendChild(selectOpt0);
+  let selectOpt1 = creerConteneur("option", "seldate", "selectopt");
+  selectOpt1.value = "date";
+  selectOpt1.innerHTML = "Date";
+  selectTri.appendChild(selectOpt1);
+  let selectOpt2 = creerConteneur("option", "seltitre", "selectopt");
+  selectOpt2.value = "titre";
+  selectOpt2.innerHTML = "Titre";
+  selectTri.appendChild(selectOpt2);
+}
+
+// Affiche la liste des medias d'un photographe
+function listemedias(medias, tri="") { 
+  document.getElementById("mediasphotographe").innerHTML = "";
+  const triParMap = (map,compareFn) => (a,b) => compareFn(map(a),map(b));
+  const parValeur = (a,b) => a - b;
+  if (tri == "likes") {      
+    const triVersLikes = e => e.likes;  
+    const parLikes = triParMap(triVersLikes,parValeur);
+    medias.sort(parLikes).reverse().forEach(obj => {        
+      creerVignetteMedia(obj);
+    });
+  }
+  else if (tri == "date") {
+    const triVersDate = e => new Date(e.date).getTime();    
+    const parDate = triParMap(triVersDate,parValeur);    
+    medias.sort(parDate).forEach(obj => {        
+      creerVignetteMedia(obj);
+    });
+  }
+  else {
+    const parTexte = function compare(a, b) {
+      if (a.titre < b.titre)
+         return -1;
+      if (a.titre > b.titre)
+         return 1;
+      return 0;
+    };    
+    medias.sort(parTexte).forEach(obj => {        
+      creerVignetteMedia(obj);
+    });
+  }
 }
 
 // Description d'un photographe sur sa page
@@ -173,7 +229,7 @@ function creerPhotographe(photographe) {
 
 // Affiche la vignette d'un média d'un photographe sur sa page
 function creerVignetteMedia (media) {
-  let parent = document.getElementById("mediasphotographe");
+  let parent = document.getElementById("mediasphotographe");  
   let element = creerConteneur("div", "mediasVignette", "mediasVignette");
   parent.appendChild(element);
   let title = creerConteneur("div", "titremedia", "titremedia");

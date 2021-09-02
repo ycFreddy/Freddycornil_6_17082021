@@ -185,6 +185,36 @@ a {
   padding: 0;
 }
 
+#tri {
+  display: flex;
+  align-content: flex-start;
+  margin: 0em;
+}
+
+.trimedias {
+  padding-left: 2em;
+  padding-right: 2em;
+  font-weight: bold;
+}
+
+.selectTri  {
+  cursor: pointer;
+  width: fit-content;
+  border-radius: 5px;
+  color: white;
+  background: #901c1c;
+  padding: 1em; 
+  white-space: nowrap;
+}
+
+.selectopt {
+  cursor: pointer;
+  color: white;
+  background: #901c1c;
+  font-size: 1.2em;;
+  white-space: nowrap;
+}
+
 #mediasphotographe {
   display: flex;
   align-items: center;
@@ -256,7 +286,7 @@ a {
   left: auto;
   right: auto;
   top: 0;
-  height: 100%;
+  height: 200%;
   width: 100%;
   overflow: auto;
   background-color: transparent;
