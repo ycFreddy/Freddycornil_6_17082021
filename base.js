@@ -57,10 +57,10 @@ const mediaUrl = function (data, photographe) {
 
 // Récupère les datas du json
 fetch('FishEyeData.json')
-  .then(function (response) {
+  .then((response) => {
   return response.json();
   })
-  .then(function (data) {
+  .then((data) => {
     let photographes = [];    
     let factory = new Factory();
     for (let i=0; i<data.photographers.length; i++) {        
