@@ -447,7 +447,10 @@ a {
     margin-right: auto;
   }
   
-  
+  #tri {
+    display: none;
+  }
+
   #listePhotographes {
     display: flex;
     flex-wrap: wrap;
