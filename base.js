@@ -250,6 +250,6 @@ const insertElement = (parent, type, key, value) => {
     }
   }
   else {element.innerHTML = value;}
-  if (type == 'video') element.play();
+  if (type == 'video') {element.play();element.loop = true;}
   parent.appendChild(element);
 }
