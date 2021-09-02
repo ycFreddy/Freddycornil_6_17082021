@@ -67,14 +67,14 @@ fetch('FishEyeData.json')
   .then((data) => {
     const photographes = []
     const factory = new Factory()
-    for (let i = 0; i < data.photographers.length; i++) {
-      data.photographers[i].medias = []
-      for (let j = 0; j < data.media.length; j++) {
-        if (data.photographers[i].id === data.media[j].photographerId) {
-          data.photographers[i].medias.push(factory.creerMedia(data.media[j], data.photographers[i].name))
+    for (const i of data.photographers) {
+      i.medias = []
+      for (const j of data.media) {
+        if (i.id === j.photographerId) {
+          i.medias.push(factory.creerMedia(j, i.name))
         }
       };
-      photographes[data.photographers[i].id] = new Photographe(data.photographers[i])
+      photographes[i.id] = new Photographe(i)
     };
     affichePhotographes(photographes, urlParams.returnUrlTag(), urlParams.returnUrlId())
   })
@@ -105,18 +105,18 @@ const menuTags = (data) => {
     };
   })
   const menutags = [...new Set(tabtags)]
-  for (let i = 0; i < menutags.length; i++) {
+  for (const i of menutags) {
     const li = document.createElement('li')
     li.id = 'tagli'
     li.className = 'tagli'
-    li.innerHTML = `<a href=?tag=${menutags[i]} class="taglien">#${menutags[i]}</a>`
+    li.innerHTML = `<a href=?tag=${i} class="taglien">#${i}</a>`
     element.appendChild(li)
   }
 }
 
 // Photographes corrospondant au Tag sélectionné
 const isPhotographeTag = (obj, tag) => {
-  for (let i = 0; i < obj.length; i++) { if (obj[i] === tag) return true }
+  for (const i of obj) { if (i === tag) return true }
 }
 
 // Affiche la liste des photographes en fonction du tag sélectionné
@@ -240,11 +240,11 @@ const creerConteneur = (type, nomId, nomClass) => {
 const insertElement = (parent, type, key, value) => {
   const element = creerConteneur(type, key, key)
   if ((type === 'img') || (type === 'video')) { element.src = value } else if (type === 'ul') {
-    for (let i = 0; i < value.length; i++) {
+    for (const i of value) {
       const li = document.createElement('li')
       li.id = 'tagli'
       li.className = 'tagli'
-      li.innerHTML = `<a href=?tag=${value[i]} class=taglien>#${value[i]}</a>`
+      li.innerHTML = `<a href=?tag=${i} class=taglien>#${i}</a>`
       element.appendChild(li)
     }
   } else { element.innerHTML = value }
