@@ -10,65 +10,48 @@ window.onscroll = e => {
 // Création du formulaire de contact
 const modalecontact = (photographe) => {
   const parent = document.getElementById('body')
-  const modale = creerConteneur('div', 'modalebox', 'modalebox')
+  const modale = insertElement(parent, 'div', 'modalebox', 'modalebox')
   modale.style.display = 'block'
-  parent.appendChild(modale)
 
-  const modaleContent = creerConteneur('div', 'modalecontent', 'modalecontent')
-  const modaleTop = creerConteneur('div', 'modaletop', 'modaletop')
-  const modaleTitre = creerConteneur('h1', 'modaletitre', 'modaletitre')
+  const modaleContent = insertElement(modale, 'div', 'modalecontent', 'modalecontent')
+  const modaleTop = insertElement(modaleContent, 'div', 'modaletop', 'modaletop')
+  const modaleTitre = insertElement(modaleTop, 'h1', 'modaletitre', 'modaletitre')
   modaleTitre.innerHTML = 'Contactez-moi ' + photographe
-  const modaleClose = creerConteneur('span', 'modaleclose', 'modaleclose')
+  const modaleClose = insertElement(modaleTop, 'span', 'modaleclose', 'modaleclose')
   modaleClose.addEventListener('click', () => { closeModale(modale) }, false)
-  modale.appendChild(modaleContent)
-  modaleContent.appendChild(modaleTop)
-  modaleTop.appendChild(modaleTitre)
-  modaleTop.appendChild(modaleClose)
 
-  const modaleBody = creerConteneur('div', 'modalebody', 'modalebody')
-  modaleContent.appendChild(modaleBody)
-  const modaleForm = creerConteneur('form', 'modaleform', 'modaleform')
-  modaleBody.appendChild(modaleForm)
-  const modalePrenomLabel = creerConteneur('label', 'modalePrenomlabel', 'modalelabel')
+  const modaleBody = insertElement(modaleContent, 'div', 'modalebody', 'modalebody')
+  const modaleForm = insertElement(modaleBody, 'form', 'modaleform', 'modaleform')
+  const modalePrenomLabel = insertElement(modaleForm, 'label', 'modalePrenomlabel', 'modalelabel')
   modalePrenomLabel.innerHTML = 'Prénom'
   modalePrenomLabel.htmlFor = 'Prenom'
-  const modalePrenom = creerConteneur('input', 'modalePrenominput', 'modaleinput')
+  const modalePrenom = insertElement(modaleForm, 'input', 'modalePrenominput', 'modaleinput')
   modalePrenom.name = 'Prenom'
-  modaleForm.appendChild(modalePrenomLabel)
-  modaleForm.appendChild(modalePrenom)
 
-  const modaleNomLabel = creerConteneur('label', 'modaleNomlabel', 'modalelabel')
+  const modaleNomLabel = insertElement(modaleForm, 'label', 'modaleNomlabel', 'modalelabel')
   modaleNomLabel.innerHTML = 'Nom'
   modaleNomLabel.htmlFor = 'Nom'
-  const modaleNom = creerConteneur('input', 'modaleNominput', 'modaleinput')
+  const modaleNom = insertElement(modaleForm, 'input', 'modaleNominput', 'modaleinput')
   modaleNom.name = 'Nom'
-  modaleForm.appendChild(modaleNomLabel)
-  modaleForm.appendChild(modaleNom)
 
-  const modaleEmailLabel = creerConteneur('label', 'modaleEmaillabel', 'modalelabel')
+  const modaleEmailLabel = insertElement(modaleForm, 'label', 'modaleEmaillabel', 'modalelabel')
   modaleEmailLabel.innerHTML = 'Email'
   modaleEmailLabel.htmlFor = 'Email'
-  const modaleEmail = creerConteneur('input', 'modaleEmailinput', 'modaleinput')
+  const modaleEmail = insertElement(modaleForm, 'input', 'modaleEmailinput', 'modaleinput')
   modaleEmail.name = 'Email'
-  modaleForm.appendChild(modaleEmailLabel)
-  modaleForm.appendChild(modaleEmail)
 
-  const modaleMessageLabel = creerConteneur('label', 'modaleMessagelabel', 'modalelabel')
+  const modaleMessageLabel = insertElement(modaleForm, 'label', 'modaleMessagelabel', 'modalelabel')
   modaleMessageLabel.innerHTML = 'Votre message'
   modaleMessageLabel.htmlFor = 'Message'
-  const modaleMessage = creerConteneur('textarea', 'modaleMessageinput', 'modaletextarea')
+  const modaleMessage = insertElement(modaleForm, 'textarea', 'modaleMessageinput', 'modaletextarea')
   modaleMessage.rows = '10'
   modaleMessage.name = 'Message'
-  modaleForm.appendChild(modaleMessageLabel)
-  modaleForm.appendChild(modaleMessage)
 
-  const modaleContentSubmit = creerConteneur('div', 'modalecontentsubmit', 'modalecontentsubmit')
-  modaleForm.appendChild(modaleContentSubmit)
-  const modaleSubmit = creerConteneur('input', 'modalesubmit', 'modalesubmit')
+  const modaleContentSubmit = insertElement(modaleForm, 'div', 'modalecontentsubmit', 'modalecontentsubmit')
+  const modaleSubmit = insertElement(modaleContentSubmit, 'input', 'modalesubmit', 'modalesubmit')
   modaleSubmit.type = 'submit'
   modaleSubmit.value = 'Envoyer'
   modaleSubmit.name = 'Email'
-  modaleContentSubmit.appendChild(modaleSubmit)
 }
 
 // Ferme la modale
