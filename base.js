@@ -201,7 +201,7 @@ const creerVignetteMedia = (media) => {
 }
 
 // formate l'affiche des champs
-const insertElement = (parent, type = '', nomId = '', nomClass = '', value = '') => {
+const insertElement = (parent, type, nomId, nomClass, value = '') => {
   const element = document.createElement(type)
   element.id = nomId
   element.className = nomClass
