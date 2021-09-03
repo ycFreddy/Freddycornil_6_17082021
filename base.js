@@ -145,7 +145,7 @@ const ProcessTriMedias = (photographe) => {
   const texttri = insertElement(triConteneur, 'p', 'textetri', 'textetri')
   texttri.innerHTML = 'Trier par'
   const selectTri = insertElement(parent, 'select', 'selectTri', 'selectTri')
-  selectTri.addEventListener('change', (e) => { listemedias(photographe, e.target.value) })
+  selectTri.addEventListener('change', (e) => { ProcessListemedias(photographe, e.target.value) })
   const selectOpt0 = insertElement(selectTri, 'option', 'sellikes', 'selectopt')
   selectOpt0.value = 'likes'
   selectOpt0.innerHTML = 'Popularité'
