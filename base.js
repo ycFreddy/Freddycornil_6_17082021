@@ -115,25 +115,6 @@ const listePhotographes = (photographes, tag) => {
   })
 }
 
-// Affiche la sélection par tri
-const triMedias = (photographe) => {
-  const parent = document.getElementById('tri')
-  const triConteneur = insertElement(parent, 'div', 'trimedias', 'trimedias')
-  const texttri = insertElement(triConteneur, 'p', 'textetri', 'textetri')
-  texttri.innerHTML = 'Trier par'
-  const selectTri = insertElement(parent, 'select', 'selectTri', 'selectTri')
-  selectTri.addEventListener('change', (e) => { listemedias(photographe, e.target.value) })
-  const selectOpt0 = insertElement(selectTri, 'option', 'sellikes', 'selectopt')
-  selectOpt0.value = 'likes'
-  selectOpt0.innerHTML = 'Popularité'
-  const selectOpt1 = insertElement(selectTri,'option', 'seldate', 'selectopt')
-  selectOpt1.value = 'date'
-  selectOpt1.innerHTML = 'Date'
-  const selectOpt2 = insertElement(selectTri, 'option', 'seltitre', 'selectopt')
-  selectOpt2.value = 'titre'
-  selectOpt2.innerHTML = 'Titre'
-}
-
 // Affiche la liste des medias d'un photographe
 const listemedias = (medias, tri = '') => {
   document.getElementById('mediasphotographe').innerHTML = ''
@@ -155,6 +136,25 @@ const listemedias = (medias, tri = '') => {
     }
     medias.sort(parTexte).forEach(obj => { creerVignetteMedia(obj) })
   }
+}
+
+// Affiche la sélection par tri
+const triMedias = (photographe) => {
+  const parent = document.getElementById('tri')
+  const triConteneur = insertElement(parent, 'div', 'trimedias', 'trimedias')
+  const texttri = insertElement(triConteneur, 'p', 'textetri', 'textetri')
+  texttri.innerHTML = 'Trier par'
+  const selectTri = insertElement(parent, 'select', 'selectTri', 'selectTri')
+  selectTri.addEventListener('change', (e) => { listemedias(photographe, e.target.value) })
+  const selectOpt0 = insertElement(selectTri, 'option', 'sellikes', 'selectopt')
+  selectOpt0.value = 'likes'
+  selectOpt0.innerHTML = 'Popularité'
+  const selectOpt1 = insertElement(selectTri,'option', 'seldate', 'selectopt')
+  selectOpt1.value = 'date'
+  selectOpt1.innerHTML = 'Date'
+  const selectOpt2 = insertElement(selectTri, 'option', 'seltitre', 'selectopt')
+  selectOpt2.value = 'titre'
+  selectOpt2.innerHTML = 'Titre'
 }
 
 // Description d'un photographe sur sa page
@@ -193,8 +193,8 @@ const creerPhotographe = (photographe) => {
 // Affiche la vignette d'un média d'un photographe sur sa page
 const creerVignetteMedia = (media) => {
   const parent = document.getElementById('mediasphotographe')
-  const element = insertElement(parent, 'div', 'mediasVignette', 'mediasVignette', '')
-  const title = insertElement(element, 'div', 'titremedia', 'titremedia', '')
+  const element = insertElement(parent, 'div', 'mediasVignette', 'mediasVignette')
+  const title = insertElement(element, 'div', 'titremedia', 'titremedia')
   insertElement(title, media.type, 'media', 'media', media.mediaUrl)
   insertElement(title, 'p', 'nommedia', 'nommedia', media.titre)
   insertElement(title, 'p', 'likes', 'likes', `${media.likes}<i class="fas fa-heart"></i>`)
