@@ -28,7 +28,7 @@ class Photographe {
 }
 
 // formatage datas medias
-class Factory {
+class Media {
   constructor () {
     this.creerMedia = (data, photographe) => {
       let media = []
@@ -63,29 +63,29 @@ class MediaUrl {
 const run = fetch('FishEyeData.json')
 run.then(response => { return response.json() }).then(data => {
   const photographes = []
-  const factory = new Factory()
+  const media = new Media()
   for (const i of data.photographers) {
     i.medias = []
-    for (const j of data.media) if (i.id === j.photographerId) i.medias.push(factory.creerMedia(j, i.name))
+    for (const j of data.media) if (i.id === j.photographerId) i.medias.push(media.creerMedia(j, i.name))
     photographes[i.id] = new Photographe(i)
-  };
-  affichePhotographes(photographes, urlParams.returnUrlTag(), urlParams.returnUrlId())
+  }
+  RouteAffichePhotographes(photographes, urlParams.returnUrlTag(), urlParams.returnUrlId())
 })
 
 // Routage de l'affichage en fonction des paramètres url
-const affichePhotographes = (photographes, tag = '', id = '') => {
+const RouteAffichePhotographes = (photographes, tag = '', id = '') => {
   if (id) {
-    affichePhotographe(photographes[id], id)
-    listemedias(photographes[id]._medias, 'likes')
-    triMedias(photographes[id]._medias)
+    ProcessAffichePhotographe(photographes[id], id)
+    ProcessListemedias(photographes[id]._medias, 'likes')
+    ProcessTriMedias(photographes[id]._medias)
   } else {
-    menuTags(photographes)
-    listePhotographes(photographes, tag)
+    ProcessMenuTags(photographes)
+    ProcessListePhotographes(photographes, tag)
   }
 }
 
 // Affiche de le menu de tags uniques
-const menuTags = (data) => {
+const ProcessMenuTags = (data) => {
   const parent = document.getElementById('menu')
   const element = document.createElement('ul')
   element.id = 'tagMenu'
@@ -109,14 +109,14 @@ const isPhotographeTag = (obj, tag) => {
 }
 
 // Affiche la liste des photographes en fonction du tag sélectionné
-const listePhotographes = (photographes, tag) => {
+const ProcessListePhotographes = (photographes, tag) => {
   photographes.forEach(obj => {
     if (tag) { if (isPhotographeTag(obj._tags, tag) === true) creerPhotographe(obj) } else { creerPhotographe(obj) }
   })
 }
 
 // Affiche la liste des medias d'un photographe
-const listemedias = (medias, tri = '') => {
+const ProcessListemedias = (medias, tri = '') => {
   document.getElementById('mediasphotographe').innerHTML = ''
   const triParMap = (map, compareFn) => (a, b) => compareFn(map(a), map(b))
   const parValeur = (a, b) => a - b
@@ -139,7 +139,7 @@ const listemedias = (medias, tri = '') => {
 }
 
 // Affiche la sélection par tri
-const triMedias = (photographe) => {
+const ProcessTriMedias = (photographe) => {
   const parent = document.getElementById('tri')
   const triConteneur = insertElement(parent, 'div', 'trimedias', 'trimedias')
   const texttri = insertElement(triConteneur, 'p', 'textetri', 'textetri')
@@ -158,7 +158,7 @@ const triMedias = (photographe) => {
 }
 
 // Description d'un photographe sur sa page
-const affichePhotographe = (photographe) => {
+const ProcessAffichePhotographe = (photographe) => {
   document.getElementById('titre').style.display = 'none'
   document.getElementById('photographe').style.display = 'flex'
   const parent = document.getElementById('photographe')
