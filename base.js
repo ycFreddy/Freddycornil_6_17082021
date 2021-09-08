@@ -123,7 +123,7 @@ const ProcessListemedias = (medias, tri = '') => {
   if (tri === 'likes') {
     const triVersLikes = e => e.likes
     const parLikes = triParMap(triVersLikes, parValeur)
-    medias.sort(parLikes).reverse().forEach( (obj, key) => { creerVignetteMedia(obj, medias, key) })
+    medias.sort(parLikes).reverse().forEach((obj, key) => { creerVignetteMedia(obj, medias, key) })
   } else if (tri === 'date') {
     const triVersDate = e => new Date(e.date).getTime()
     const parDate = triParMap(triVersDate, parValeur)
@@ -196,7 +196,7 @@ const creerVignetteMedia = (media, medias, key = '') => {
   const element = insertElement(parent, 'div', 'mediasVignette', 'mediasVignette')
   const title = insertElement(element, 'div', 'titremedia', 'titremedia')
   const mediaLink = insertElement(title, media.type, 'media', 'media', media.mediaUrl)
-  mediaLink.addEventListener('click', () => { openCaroussel(medias, key + 1) })
+  mediaLink.addEventListener('click', () => { openCarousel(medias, key + 1) })
   insertElement(title, 'p', '', 'nommedia', media.titre)
   insertElement(title, 'p', '', 'likes', `${media.likes}<i class="fas fa-heart"></i>`)
 }

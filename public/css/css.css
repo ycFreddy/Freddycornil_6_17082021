@@ -379,7 +379,7 @@ a {
   border-color: transparent;
 }
 
-.carousselbox {
+.carouselbox {
   display: none;
   position: fixed;
   z-index: 1;
@@ -392,7 +392,7 @@ a {
   background-color: transparent;
 }
 
-.carousselcontent {
+.carouselcontent {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -423,7 +423,7 @@ a {
   color: #901c1c;
 }
 
-.carousselclose {
+.carouselclose {
   position: absolute;
   right: 30px;
   top: 20px;
@@ -433,8 +433,8 @@ a {
   cursor: pointer;
   transform: scale(0.7);
 }
-.carousselclose:before,
-.carousselclose:after {
+.carouselclose:before,
+.carouselclose:after {
   position: absolute;
   left: 15px;
   content: " ";
@@ -442,10 +442,10 @@ a {
   width: 3px;
   background-color: #901c1c;
 }
-.carousselclose:before {
+.carouselclose:before {
   transform: rotate(45deg);
 }
-.carousselclose:after {
+.carouselclose:after {
   transform: rotate(-45deg);
 }
 
