@@ -123,18 +123,18 @@ const ProcessListemedias = (medias, tri = '') => {
   if (tri === 'likes') {
     const triVersLikes = e => e.likes
     const parLikes = triParMap(triVersLikes, parValeur)
-    medias.sort(parLikes).reverse().forEach(obj => { creerVignetteMedia(obj) })
+    medias.sort(parLikes).reverse().forEach( (obj, key) => { creerVignetteMedia(obj, medias, key) })
   } else if (tri === 'date') {
     const triVersDate = e => new Date(e.date).getTime()
     const parDate = triParMap(triVersDate, parValeur)
-    medias.sort(parDate).forEach(obj => { creerVignetteMedia(obj) })
+    medias.sort(parDate).forEach(obj => { creerVignetteMedia(obj, medias) })
   } else {
     const parTexte = (a, b) => {
       if (a.titre < b.titre) return -1
       if (a.titre > b.titre) return 1
       return 0
     }
-    medias.sort(parTexte).forEach(obj => { creerVignetteMedia(obj) })
+    medias.sort(parTexte).forEach(obj => { creerVignetteMedia(obj, medias) })
   }
 }
 
@@ -149,7 +149,7 @@ const ProcessTriMedias = (photographe) => {
   const selectOpt0 = insertElement(selectTri, 'option', 'sellikes', 'selectopt')
   selectOpt0.value = 'likes'
   selectOpt0.innerHTML = 'Popularité'
-  const selectOpt1 = insertElement(selectTri,'option', 'seldate', 'selectopt')
+  const selectOpt1 = insertElement(selectTri, 'option', 'seldate', 'selectopt')
   selectOpt1.value = 'date'
   selectOpt1.innerHTML = 'Date'
   const selectOpt2 = insertElement(selectTri, 'option', 'seltitre', 'selectopt')
@@ -191,13 +191,14 @@ const creerPhotographe = (photographe) => {
 }
 
 // Affiche la vignette d'un média d'un photographe sur sa page
-const creerVignetteMedia = (media) => {
+const creerVignetteMedia = (media, medias, key = '') => {
   const parent = document.getElementById('mediasphotographe')
   const element = insertElement(parent, 'div', 'mediasVignette', 'mediasVignette')
   const title = insertElement(element, 'div', 'titremedia', 'titremedia')
-  insertElement(title, media.type, 'media', 'media', media.mediaUrl)
-  insertElement(title, 'p', 'nommedia', 'nommedia', media.titre)
-  insertElement(title, 'p', 'likes', 'likes', `${media.likes}<i class="fas fa-heart"></i>`)
+  const mediaLink = insertElement(title, media.type, 'media', 'media', media.mediaUrl)
+  mediaLink.addEventListener('click', () => { openCaroussel(medias, key + 1) })
+  insertElement(title, 'p', '', 'nommedia', media.titre)
+  insertElement(title, 'p', '', 'likes', `${media.likes}<i class="fas fa-heart"></i>`)
 }
 
 // formate l'affiche des champs
