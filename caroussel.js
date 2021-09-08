@@ -21,7 +21,7 @@ const openCarousel = (medias, pos) => {
 }
 
 // Affiche Carouselle
-const ProcessListCarousel = (parent, medias) => {  
+const ProcessListCarousel = (parent, medias) => {
   medias.forEach(obj => { creerVignetteCarousel(parent, obj) })
 }
 
