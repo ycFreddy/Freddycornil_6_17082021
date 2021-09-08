@@ -21,12 +21,8 @@ const openCarousel = (medias, pos) => {
 }
 
 // Affiche Carouselle
-const ProcessListCarousel = (parent, medias) => {
-  const triParMap = (map, compareFn) => (a, b) => compareFn(map(a), map(b))
-  const parValeur = (a, b) => a - b
-  const triVersLikes = e => e.likes
-  const parLikes = triParMap(triVersLikes, parValeur)
-  medias.sort(parLikes).reverse().forEach(obj => { creerVignetteCarousel(parent, obj) })
+const ProcessListCarousel = (parent, medias) => {  
+  medias.forEach(obj => { creerVignetteCarousel(parent, obj) })
 }
 
 // Affiche les vignettes d'un caroussel
@@ -52,8 +48,7 @@ function navCarousel (n) {
 }
 
 // Ferme la modale
-const closeCarousel = (modale) => {
-  const removeElements = (elms) => elms.forEach(el => el.remove())
+const closeCarousel = (modale) => {  
   removeElements(document.querySelectorAll('.carousselVignette'))
   modale.style.display = 'none'
 }

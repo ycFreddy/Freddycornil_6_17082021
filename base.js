@@ -117,7 +117,7 @@ const ProcessListePhotographes = (photographes, tag) => {
 
 // Affiche la liste des medias d'un photographe
 const ProcessListemedias = (medias, tri = '') => {
-  document.getElementById('mediasphotographe').innerHTML = ''
+  removeElements(document.querySelectorAll('.mediasVignette'))
   const triParMap = (map, compareFn) => (a, b) => compareFn(map(a), map(b))
   const parValeur = (a, b) => a - b
   if (tri === 'likes') {
@@ -127,14 +127,14 @@ const ProcessListemedias = (medias, tri = '') => {
   } else if (tri === 'date') {
     const triVersDate = e => new Date(e.date).getTime()
     const parDate = triParMap(triVersDate, parValeur)
-    medias.sort(parDate).forEach(obj => { creerVignetteMedia(obj, medias) })
+    medias.sort(parDate).forEach((obj, key) => { creerVignetteMedia(obj, medias, key) })
   } else {
     const parTexte = (a, b) => {
       if (a.titre < b.titre) return -1
       if (a.titre > b.titre) return 1
       return 0
     }
-    medias.sort(parTexte).forEach(obj => { creerVignetteMedia(obj, medias) })
+    medias.sort(parTexte).forEach((obj, key) => { creerVignetteMedia(obj, medias, key) })
   }
 }
 
@@ -219,3 +219,5 @@ const insertElement = (parent, type, nomId, nomClass, value = '') => {
   parent.appendChild(element)
   return element
 }
+
+const removeElements = (elms) => elms.forEach(el => el.remove())
