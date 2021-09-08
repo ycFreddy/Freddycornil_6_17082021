@@ -397,10 +397,7 @@ a {
   align-items: center;
   justify-content: center;
   margin: auto;
-  width: 90%;
-  height: 90%;
-  max-width:90%;
-  max-height: 80%;
+  width: fit-content;
   animation-name: affichescroll;
   animation-duration: 0.8s;
   background: white;
@@ -418,15 +415,23 @@ a {
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 10%;
+  width: 50px;
   font-size: 50px;
   color: #901c1c;
 }
 
+.left {
+  text-align: right;
+}
+
+.right {
+  text-align: left;
+}
+
 .carouselclose {
   position: absolute;
-  right: 30px;
-  top: 20px;
+  right: -10px;
+  top: 0px;
   width: 50px;
   height: 50px;
   opacity: 1;
@@ -453,11 +458,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  width: 100%;  
   overflow: hidden;
-  max-width: 100%;
-  max-height: 100%;
 }
 
 .centerContent {
@@ -469,17 +470,18 @@ a {
 .vignetteContent > img {
   object-fit: contain;
   width: 100%;
-  height: 50vw;
+  height: 80vh;
 }
 
 .vignetteContent > video {
   object-fit: contain;
-  width: 100%;
-  height: 100%;
+  width: 80vw;
+  height: 60vh;
 }
 
 .nommediaC {
-  top: 0;
+  margin-bottom: 0.5em;
+  top: -20px;
   color: #901c1c;
 }
 
@@ -614,6 +616,15 @@ a {
     display: flex;
     justify-content: center;
   }
+  .vignetteContent > img {
+    height: 100%;
+  }
+  
+  .vignetteContent > video {
+    height: 100%;
+  }
+  .carouselclose {    
+    right: -20px;
 }
 
 @keyframes affichescroll {

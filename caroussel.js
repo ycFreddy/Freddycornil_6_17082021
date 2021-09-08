@@ -3,25 +3,25 @@ const openCarousel = (medias, pos) => {
   const parent = document.getElementById('body')
   const modale = insertElement(parent, 'div', 'carouselbox', 'carouselbox')
   modale.style.display = 'flex'
-  const modaleContent = insertElement(modale, 'div', 'carouselcontent', 'carouselcontent')
-  const left = insertElement(modaleContent, 'div', 'left', 'left')
+  const carouselContent = insertElement(modale, 'div', 'carouselcontent', 'carouselcontent')
+  const left = insertElement(carouselContent, 'div', 'left', 'left')
   const back = insertElement(left, 'a', 'back', 'back')
   back.innerHTML = '<'
   back.addEventListener('click', () => { controls(-1) })
-  const center = insertElement(modaleContent, 'div', 'center', 'center')
-  const right = insertElement(modaleContent, 'div', 'right', 'right')
+  const center = insertElement(carouselContent, 'div', 'center', 'center')
+  const right = insertElement(carouselContent, 'div', 'right', 'right')
   const carouselclose = insertElement(right, 'span', 'carouselclose', 'carouselclose')
   carouselclose.addEventListener('click', () => { closeModale(modale) }, false)
   const forward = insertElement(right, 'a', 'forward', 'forward')
   forward.innerHTML = '>'
   forward.addEventListener('click', () => { controls(1) })
   const centerContent = insertElement(center, 'div', 'centerContent', 'centerContent')
-  ProcessListCarousel(centerContent, medias, tri = 'likes')
+  ProcessListCarousel(centerContent, medias)
   navCarousel(parseInt(pos))
 }
 
 // Affiche Carouselle
-const ProcessListCarousel = (parent, medias, tri = '') => {
+const ProcessListCarousel = (parent, medias) => {
   document.getElementById('centerContent').innerHTML = ''
   const triParMap = (map, compareFn) => (a, b) => compareFn(map(a), map(b))
   const parValeur = (a, b) => a - b
