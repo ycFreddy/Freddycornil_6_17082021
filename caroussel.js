@@ -53,6 +53,7 @@ function navCarousel (n) {
 
 // Ferme la modale
 const closeCarousel = (modale) => {
-  document.getElementById('centerContent').innerHTML = ''
+  const removeElements = (elms) => elms.forEach(el => el.remove())
+  removeElements(document.querySelectorAll('.carousselVignette'))
   modale.style.display = 'none'
 }
