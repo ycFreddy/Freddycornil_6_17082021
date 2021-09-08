@@ -444,7 +444,7 @@ a {
   left: 15px;
   content: " ";
   height: 33px;
-  width: 3px;
+  width: 5px;
   background-color: #901c1c;
 }
 .carouselclose:before {
