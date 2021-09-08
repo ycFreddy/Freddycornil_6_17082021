@@ -470,7 +470,7 @@ a {
 .vignetteContent > img {
   object-fit: contain;
   width: 100%;
-  height: 80vh;
+  height: 90vh;
 }
 
 .vignetteContent > video {
