@@ -11,7 +11,7 @@ const openCarousel = (medias, pos) => {
   const center = insertElement(carouselContent, 'div', 'center', 'center')
   const right = insertElement(carouselContent, 'div', 'right', 'right')
   const carouselclose = insertElement(right, 'span', 'carouselclose', 'carouselclose')
-  carouselclose.addEventListener('click', () => { closeModale(modale) }, false)
+  carouselclose.addEventListener('click', () => { closeCarousel(modale) }, false)
   const forward = insertElement(right, 'a', 'forward', 'forward')
   forward.innerHTML = '>'
   forward.addEventListener('click', () => { controls(1) })
@@ -22,7 +22,6 @@ const openCarousel = (medias, pos) => {
 
 // Affiche Carouselle
 const ProcessListCarousel = (parent, medias) => {
-  document.getElementById('centerContent').innerHTML = ''
   const triParMap = (map, compareFn) => (a, b) => compareFn(map(a), map(b))
   const parValeur = (a, b) => a - b
   const triVersLikes = e => e.likes
@@ -50,4 +49,10 @@ function navCarousel (n) {
   for (const i of vignettes) { i.style.display = 'none' }
   vignettes[n - 1].style.display = 'block'
   position = n
+}
+
+// Ferme la modale
+const closeCarousel = (modale) => {
+  document.getElementById('centerContent').innerHTML = ''
+  modale.style.display = 'none'
 }
