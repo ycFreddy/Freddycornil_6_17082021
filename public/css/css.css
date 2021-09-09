@@ -289,7 +289,7 @@ a {
   height: 200%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(255,255,255,0.9);
 }
 
 .modalecontent {
@@ -389,7 +389,7 @@ a {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(255,255,255,0.9);
 }
 
 .carouselcontent {
