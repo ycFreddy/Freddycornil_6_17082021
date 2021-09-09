@@ -385,10 +385,9 @@ a {
   z-index: 1;
   left: auto;
   right: auto;
-  top: 0%;
+  top: 0;
   height: 100%;
   width: 100%;
-  overflow: auto;
   background-color: rgba(255,255,255,0.9);
 }
 
@@ -397,12 +396,10 @@ a {
   align-items: center;
   justify-content: center;
   margin: auto;
-  width: fit-content;
   animation-name: affichescroll;
   animation-duration: 0.8s;
   background: white;
   border-radius: 5px;
-  overflow: hidden;
   position: relative;
   color: #fff;
   padding-top: 10px;
@@ -454,29 +451,16 @@ a {
   transform: rotate(-45deg);
 }
 
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.centerContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .vignetteContent > img {
   object-fit: contain;
-  width: 100%;
+  max-width: 90vw;
   max-height: 90vh;
 }
 
 .vignetteContent > video {
   object-fit: contain;
-  width: 80vw;
-  height: 60vh;
+  max-width: 90vw;
+  max-height: 90vh;
 }
 
 .nommediaC {
@@ -616,12 +600,20 @@ a {
     display: flex;
     justify-content: center;
   }
+  .left, .right {
+    font-size: 30px;
+    width: 30px;
+  }
   .vignetteContent > img {
-    height: 100%;
+    object-fit: contain;
+    max-width: 80vw;
+    max-height: 80vh;
   }
   
   .vignetteContent > video {
-    height: 100%;
+    object-fit: contain;
+    max-width: 80vw;
+    max-height: 80vh;
   }
   .carouselclose {    
     right: -20px;
