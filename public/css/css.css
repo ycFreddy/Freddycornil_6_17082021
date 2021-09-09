@@ -451,14 +451,12 @@ a {
   transform: rotate(-45deg);
 }
 
-.vignetteContent > img {
-  object-fit: contain;
+.vignetteContent > img {  
   max-width: 90vw;
   max-height: 90vh;
 }
 
-.vignetteContent > video {
-  object-fit: contain;
+.vignetteContent > video {  
   max-width: 90vw;
   max-height: 90vh;
 }
@@ -605,13 +603,11 @@ a {
     width: 30px;
   }
   .vignetteContent > img {
-    object-fit: contain;
     max-width: 80vw;
     max-height: 80vh;
   }
   
   .vignetteContent > video {
-    object-fit: contain;
     max-width: 80vw;
     max-height: 80vh;
   }
