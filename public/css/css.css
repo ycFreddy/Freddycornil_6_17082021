@@ -290,16 +290,19 @@ a {
   left: auto;
   right: auto;
   top: 0;
-  height: 200%;
+  height: 100%;
   width: 100%;
   overflow: auto;
   background-color: rgba(255,255,255,0.9);
 }
 
 .modalecontent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   margin: 2% auto;
-  width: 100%;
-  max-width: 500px;
+  max-width: 400px;
   animation-name: affichescroll;
   animation-duration: 0.8s;
   background: #d3573c;
@@ -333,6 +336,7 @@ a {
   cursor: pointer;
   transform: scale(0.7);
 }
+
 .modaleclose:before,
 .modaleclose:after {
   position: absolute;
@@ -342,9 +346,11 @@ a {
   width: 3px;
   background-color: #fff;
 }
+
 .modaleclose:before {
   transform: rotate(45deg);
 }
+
 .modaleclose:after {
   transform: rotate(-45deg);
 }
@@ -439,6 +445,7 @@ a {
   cursor: pointer;
   transform: scale(0.7);
 }
+
 .carouselclose:before,
 .carouselclose:after {
   position: absolute;
@@ -448,9 +455,11 @@ a {
   width: 5px;
   background-color: #901c1c;
 }
+
 .carouselclose:before {
   transform: rotate(45deg);
 }
+
 .carouselclose:after {
   transform: rotate(-45deg);
 }
@@ -600,6 +609,7 @@ a {
     object-fit: cover;
     border-radius: 50%;
   }
+
   .contactbox{
     position: absolute;
     bottom: 10px;  
@@ -612,14 +622,21 @@ a {
     flex: auto;
     padding: unset;
   }
+
+  .modalecontent {
+    max-width: 300px;
+  }
+
   .modalecontentsubmit {
     display: flex;
     justify-content: center;
   }
+
   .left, .right {
     font-size: 30px;
     width: 30px;
   }
+
   .vignetteContent > img {
     max-width: 80vw;
     max-height: 80vh;
@@ -629,9 +646,11 @@ a {
     max-width: 80vw;
     max-height: 80vh;
   }
+
   .carouselclose {    
     right: -20px;
   }
+
   .likesbox{
     display: none;
   }
