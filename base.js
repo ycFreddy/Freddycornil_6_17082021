@@ -213,7 +213,7 @@ const creerVignetteMedia = (media, medias, key = '') => {
   insertElement(title, 'p', '', 'nommedia', media.titre)
   insertElement(title, 'p', `likes${media.id}`, 'likes', media.likes)
   const faL = insertElement(title, 'p', '', 'faL', ' <i class="fas fa-heart"></i>')
-  faL.addEventListener('click', () => { incrementelikes(media.id) })
+  faL.addEventListener('click', () => { incrementelikes(media, media.id) })
 }
 
 // formate l'affiche des champs
@@ -237,11 +237,12 @@ const insertElement = (parent, type, nomId, nomClass, value = '') => {
 
 const removeElements = (elms) => elms.forEach(el => el.remove())
 
-const incrementelikes = (mediaId) => {
+const incrementelikes = (media, mediaId) => {
   let nbLikes = parseInt(document.getElementById(`likes${mediaId}`).innerHTML)
   let nbMedias = parseInt(document.getElementById('likesB').innerHTML)
   nbLikes += 1
   nbMedias += 1
+  media.likes += 1
   document.getElementById(`likes${mediaId}`).innerHTML = nbLikes
   document.getElementById('likesB').innerHTML = nbMedias
 }
