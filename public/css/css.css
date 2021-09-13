@@ -146,6 +146,7 @@ a {
   height: 200px;
   object-fit: cover;
   border-radius: 50%;
+  image-rendering: crisp-edges;
 }
 
 #listePhotographes {
@@ -255,6 +256,7 @@ a {
 }
 
 .fa-heart {
+  cursor: pointer;
   padding: 5px;
 }
 
@@ -467,6 +469,20 @@ a {
   color: #901c1c;
 }
 
+.likesbox{
+  position: absolute;
+  bottom: 0px;    
+  right: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  border-radius: 5px 5px 0px 0px;
+  background: #d3573c;
+  padding: 0.5em;
+  white-space: nowrap;
+}
+
 @media (max-width: 576px) { 
   .personnageVignette {     
     margin: 0em;
@@ -613,6 +629,10 @@ a {
   }
   .carouselclose {    
     right: -20px;
+  }
+  .likesbox{
+    display: none;
+  }
 }
 
 @keyframes affichescroll {

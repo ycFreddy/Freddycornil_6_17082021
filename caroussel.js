@@ -48,7 +48,7 @@ function navCarousel (n) {
 }
 
 // Ferme la modale
-const closeCarousel = (modale) => {  
+const closeCarousel = (modale) => {
   removeElements(document.querySelectorAll('.carousselVignette'))
   modale.style.display = 'none'
 }

@@ -23,6 +23,7 @@ class Photographe {
     this._prixFormat = `${data.price} €/jour`
     this._portrait = data.portrait
     this._portraitUrl = `public/images/PhotographersIDPhotos/${data.portrait}`
+    this._nombreMedias = data.nombreMedias
     this._medias = data.medias
   }
 }
@@ -66,7 +67,15 @@ run.then(response => { return response.json() }).then(data => {
   const media = new Media()
   for (const i of data.photographers) {
     i.medias = []
-    for (const j of data.media) if (i.id === j.photographerId) i.medias.push(media.creerMedia(j, i.name))
+    i.nombreMedias = 0
+    let nombreMedias = 0
+    for (const j of data.media) {
+      if (i.id === j.photographerId) {
+        i.medias.push(media.creerMedia(j, i.name))
+        nombreMedias = nombreMedias + parseInt(j.likes)
+      }
+    }
+    i.nombreMedias = nombreMedias
     photographes[i.id] = new Photographe(i)
   }
   RouteAffichePhotographes(photographes, urlParams.returnUrlTag(), urlParams.returnUrlId())
@@ -76,7 +85,7 @@ run.then(response => { return response.json() }).then(data => {
 const RouteAffichePhotographes = (photographes, tag = '', id = '') => {
   if (id) {
     ProcessAffichePhotographe(photographes[id], id)
-    ProcessListemedias(photographes[id]._medias, 'likes')
+    ProcessListeMedias(photographes[id]._medias, 'likes')
     ProcessTriMedias(photographes[id]._medias)
   } else {
     ProcessMenuTags(photographes)
@@ -116,7 +125,7 @@ const ProcessListePhotographes = (photographes, tag) => {
 }
 
 // Affiche la liste des medias d'un photographe
-const ProcessListemedias = (medias, tri = '') => {
+const ProcessListeMedias = (medias, tri = '') => {
   removeElements(document.querySelectorAll('.mediasVignette'))
   const triParMap = (map, compareFn) => (a, b) => compareFn(map(a), map(b))
   const parValeur = (a, b) => a - b
@@ -145,7 +154,7 @@ const ProcessTriMedias = (photographe) => {
   const texttri = insertElement(triConteneur, 'p', 'textetri', 'textetri')
   texttri.innerHTML = 'Trier par'
   const selectTri = insertElement(parent, 'select', 'selectTri', 'selectTri')
-  selectTri.addEventListener('change', (e) => { ProcessListemedias(photographe, e.target.value) })
+  selectTri.addEventListener('change', (e) => { ProcessListeMedias(photographe, e.target.value) })
   const selectOpt0 = insertElement(selectTri, 'option', 'sellikes', 'selectopt')
   selectOpt0.value = 'likes'
   selectOpt0.innerHTML = 'Popularité'
@@ -174,6 +183,10 @@ const ProcessAffichePhotographe = (photographe) => {
   const lien = insertElement(parent, 'a', 'lienPersonnage', 'lienPersonnage')
   lien.href = `?id=${photographe._id}`
   insertElement(lien, 'img', 'portraitphotographe', 'portraitphotographe', photographe._portraitUrl)
+  const likesbox = insertElement(parent, 'div', 'likesbox', 'likesbox')
+  insertElement(likesbox, 'p', 'likesB', 'likesB', photographe._nombreMedias)
+  insertElement(likesbox, 'p', 'faB', 'faB', ' <i class="fas fa-heart"></i>')
+  insertElement(likesbox, 'p', 'priceB', 'priceB', photographe._prixFormat)
 }
 
 // Description d'un photographe sur la page d'accueil
@@ -198,7 +211,9 @@ const creerVignetteMedia = (media, medias, key = '') => {
   const mediaLink = insertElement(title, media.type, 'media', 'media', media.mediaUrl)
   mediaLink.addEventListener('click', () => { openCarousel(medias, key + 1) })
   insertElement(title, 'p', '', 'nommedia', media.titre)
-  insertElement(title, 'p', '', 'likes', `${media.likes}<i class="fas fa-heart"></i>`)
+  insertElement(title, 'p', `likes${media.id}`, 'likes', media.likes)
+  const faL = insertElement(title, 'p', '', 'faL', ' <i class="fas fa-heart"></i>')
+  faL.addEventListener('click', () => { incrementelikes(media.id) })
 }
 
 // formate l'affiche des champs
@@ -221,3 +236,12 @@ const insertElement = (parent, type, nomId, nomClass, value = '') => {
 }
 
 const removeElements = (elms) => elms.forEach(el => el.remove())
+
+const incrementelikes = (mediaId) => {
+  let nbLikes = parseInt(document.getElementById(`likes${mediaId}`).innerHTML)
+  let nbMedias = parseInt(document.getElementById('likesB').innerHTML)
+  nbLikes += 1
+  nbMedias += 1
+  document.getElementById(`likes${mediaId}`).innerHTML = nbLikes
+  document.getElementById('likesB').innerHTML = nbMedias
+}
