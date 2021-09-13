@@ -624,7 +624,12 @@ a {
   }
 
   .modalecontent {
-    max-width: 300px;
+    max-width: 350px;
+  }
+
+  .modaletitre {    
+    flex: auto;
+    width: 75%;
   }
 
   .modalecontentsubmit {
