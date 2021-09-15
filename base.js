@@ -106,6 +106,7 @@ const ProcessMenuTags = (data) => {
   const element = document.createElement('ul')
   element.id = 'tagMenu'
   element.className = 'tagMenu'
+  element.ariaLabel = 'menu'
   parent.appendChild(element)
   let tabtags = []
   data.forEach(obj => { if (obj._tags) tabtags = tabtags.concat(obj._tags) })
@@ -195,6 +196,7 @@ const ProcessAffichePhotographe = (photographe) => {
   lien.href = `?id=${photographe._id}`
   const lienIm = insertElement(lien, 'img', 'portraitphotographe', 'portraitphotographe', photographe._portraitUrl)
   lienIm.alt = `descrition ${photographe._nom}`
+  lienIm.ariaLabel = `descrition ${photographe._nom}`
   const likesbox = insertElement(parent, 'div', 'likesbox', 'likesbox')
   insertElement(likesbox, 'p', 'likesB', 'likesB', photographe._nombreMedias)
   insertElement(likesbox, 'p', 'faB', 'faB', ' <i class="fas fa-heart"></i>')
@@ -210,6 +212,7 @@ const creerPhotographe = (photographe) => {
   lien.tabIndex = 0
   const im = insertElement(lien, 'img', 'portrait', 'portrait', photographe._portraitUrl)
   im.alt = photographe._nom
+  im.ariaLabel = photographe._nom
   insertElement(lien, 'h2', 'name', 'name', photographe._nom)
   insertElement(element, 'p', 'city', 'city', photographe._lieu)
   insertElement(element, 'p', 'tagline', 'tagline', photographe._tagline)
