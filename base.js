@@ -37,6 +37,7 @@ class Media {
       media.id = data.id
       media.idPhotographe = data.photographerId
       media.titre = data.title
+      media.description = data.description
       media.image = data.image
       media.tags = data.tags
       media.likes = data.likes
@@ -81,8 +82,14 @@ run.then(response => { return response.json() }).then(data => {
   RouteAffichePhotographes(photographes, urlParams.returnUrlTag(), urlParams.returnUrlId())
 })
 
+// Donne le focus au logo
+const indexFocus = () => {
+  document.getElementById('logo').focus()
+}
+
 // Routage de l'affichage en fonction des paramètres url
 const RouteAffichePhotographes = (photographes, tag = '', id = '') => {
+  indexFocus()
   if (id) {
     ProcessAffichePhotographe(photographes[id], id)
     ProcessListeMedias(photographes[id]._medias, 'likes')
@@ -151,9 +158,10 @@ const ProcessListeMedias = (medias, tri = '') => {
 const ProcessTriMedias = (photographe) => {
   const parent = document.getElementById('tri')
   const triConteneur = insertElement(parent, 'div', 'trimedias', 'trimedias')
-  const texttri = insertElement(triConteneur, 'p', 'textetri', 'textetri')
+  const texttri = insertElement(triConteneur, 'label', 'textetri', 'textetri')
   texttri.innerHTML = 'Trier par'
   const selectTri = insertElement(parent, 'select', 'selectTri', 'selectTri')
+  selectTri.tabIndex = 0
   selectTri.addEventListener('change', (e) => { ProcessListeMedias(photographe, e.target.value) })
   const selectOpt0 = insertElement(selectTri, 'option', 'sellikes', 'selectopt')
   selectOpt0.value = 'likes'
@@ -164,6 +172,7 @@ const ProcessTriMedias = (photographe) => {
   const selectOpt2 = insertElement(selectTri, 'option', 'seltitre', 'selectopt')
   selectOpt2.value = 'titre'
   selectOpt2.innerHTML = 'Titre'
+  texttri.htmlFor = 'selectTri'
 }
 
 // Description d'un photographe sur sa page
@@ -171,18 +180,21 @@ const ProcessAffichePhotographe = (photographe) => {
   document.getElementById('titre').style.display = 'none'
   document.getElementById('photographe').style.display = 'flex'
   const parent = document.getElementById('photographe')
-  const element = insertElement(parent, 'div', 'personnageVignette', 'photographeVignette')
+  const element = insertElement(parent, 'section', 'personnageVignette', 'photographeVignette')
   insertElement(element, 'h1', 'namephotographe', 'namephotographe', photographe._nom)
-  insertElement(element, 'p', 'cityphotographe', 'cityphotographe', photographe._lieu)
+  insertElement(element, 'h2', 'cityphotographe', 'cityphotographe', photographe._lieu)
   insertElement(element, 'p', 'taglinephotographe', 'taglinephotographe', photographe._tagline)
   insertElement(element, 'ul', 'tagsphotographe', 'tagsphotographe', photographe._tags)
   const contactbox = insertElement(parent, 'div', 'contactbox', 'contactbox')
   const contact = insertElement(contactbox, 'a', 'contact', 'contact')
   contact.innerHTML = 'contactez-moi'
+  contact.tabIndex = 0
   contact.addEventListener('click', () => { modalecontact(photographe._nom) })
+  contact.addEventListener('keypress', () => { modalecontact(photographe._nom) })
   const lien = insertElement(parent, 'a', 'lienPersonnage', 'lienPersonnage')
   lien.href = `?id=${photographe._id}`
-  insertElement(lien, 'img', 'portraitphotographe', 'portraitphotographe', photographe._portraitUrl)
+  const lienIm = insertElement(lien, 'img', 'portraitphotographe', 'portraitphotographe', photographe._portraitUrl)
+  lienIm.alt = `descrition ${photographe._nom}`
   const likesbox = insertElement(parent, 'div', 'likesbox', 'likesbox')
   insertElement(likesbox, 'p', 'likesB', 'likesB', photographe._nombreMedias)
   insertElement(likesbox, 'p', 'faB', 'faB', ' <i class="fas fa-heart"></i>')
@@ -195,12 +207,15 @@ const creerPhotographe = (photographe) => {
   const element = insertElement(parent, 'div', 'personnageVignette', 'personnageVignette')
   const lien = insertElement(element, 'a', 'lienPersonnage', 'lienPersonnage')
   lien.href = `?id=${photographe._id}`
-  insertElement(lien, 'img', 'portrait', 'portrait', photographe._portraitUrl)
+  lien.tabIndex = 0
+  const im = insertElement(lien, 'img', 'portrait', 'portrait', photographe._portraitUrl)
+  im.alt = photographe._nom
   insertElement(lien, 'h2', 'name', 'name', photographe._nom)
   insertElement(element, 'p', 'city', 'city', photographe._lieu)
   insertElement(element, 'p', 'tagline', 'tagline', photographe._tagline)
   insertElement(element, 'p', 'price', 'price', photographe._prixFormat)
-  insertElement(element, 'ul', 'tags', 'tags', photographe._tags)
+  const tag = insertElement(element, 'ul', 'tags', 'tags', photographe._tags)
+  tag.tabIndex = -1
 }
 
 // Affiche la vignette d'un média d'un photographe sur sa page
@@ -209,7 +224,11 @@ const creerVignetteMedia = (media, medias, key = '') => {
   const element = insertElement(parent, 'div', 'mediasVignette', 'mediasVignette')
   const title = insertElement(element, 'div', 'titremedia', 'titremedia')
   const mediaLink = insertElement(title, media.type, 'media', 'media', media.mediaUrl)
+  mediaLink.alt = ` Media ${media.description}`
+  mediaLink.ariaLabel = ` Media ${media.description}`
+  mediaLink.tabIndex = 0
   mediaLink.addEventListener('click', () => { openCarousel(medias, key + 1) })
+  mediaLink.addEventListener('keypress', () => { openCarousel(medias, key + 1) })
   insertElement(title, 'p', '', 'nommedia', media.titre)
   insertElement(title, 'p', `likes${media.id}`, 'likes', media.likes)
   const faL = insertElement(title, 'p', '', 'faL', ' <i class="fas fa-heart"></i>')
