@@ -37,7 +37,7 @@ class Media {
       media.id = data.id
       media.idPhotographe = data.photographerId
       media.titre = data.title
-      media.description = data.description
+      media.altText = data.alt_text
       media.image = data.image
       media.tags = data.tags
       media.likes = data.likes
@@ -63,7 +63,7 @@ class MediaUrl {
 
 // Récupère les datas du json
 const run = fetch('FishEyeData.json')
-run.then(response => { return response.json() }).then(data => {
+run.then(response => { return response.json() }).then(data => {  
   const photographes = []
   const media = new Media()
   for (const i of data.photographers) {
@@ -227,8 +227,8 @@ const creerVignetteMedia = (media, medias, key = '') => {
   const element = insertElement(parent, 'div', 'mediasVignette', 'mediasVignette')
   const title = insertElement(element, 'div', 'titremedia', 'titremedia')
   const mediaLink = insertElement(title, media.type, 'media', 'media', media.mediaUrl)
-  mediaLink.alt = ` Media ${media.description}`
-  mediaLink.ariaLabel = ` Media ${media.description}`
+  mediaLink.alt = ` Media ${media.altText}`
+  mediaLink.ariaLabel = ` Media ${media.altText}`
   mediaLink.tabIndex = 0
   mediaLink.addEventListener('click', () => { openCarousel(medias, key + 1) })
   mediaLink.addEventListener('keypress', () => { openCarousel(medias, key + 1) })
